@@ -85,7 +85,7 @@ namespace Content
             //Resource Type
             if (filePath.Contains("Type")) { key = "font_"+ name; return key; } 
             //In directory organization, have each resource catagory have its own directory. So for example, fonts go in the "Fonts" directory,
-            //textures go into the "Textures" folder. Then have subdirectories for each state of the game. This will be signifian't for how the
+            //textures go into the "Textures" folder. Then have subdirectories for each state of the game. This will be significant for how the
             //Resource Manager will be able to load these resources from one call from the state.
             
             else { return ""; }
