@@ -1,7 +1,9 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System;
+//C#
+using System                    ;
 using System.Collections.Generic;
-using System.IO;
+using System.IO                 ;
+//Monogame
+using Microsoft.Xna.Framework.Graphics;
 
 
 namespace Content
