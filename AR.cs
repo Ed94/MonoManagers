@@ -29,7 +29,7 @@ namespace AbstractRealm
         StndOptions options;
         
         //Constructors
-        public AR(Dreamer dreamer, ContentManager passContent)
+        public AR(Game game, ContentManager passContent)
         {
             content     = passContent                       ;
             gDeviceMngr = new GraphicsDeviceManager(dreamer);
