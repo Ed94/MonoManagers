@@ -12,7 +12,6 @@ namespace AbstractRealm.Realm_Space
 {
     public class SpaceMngr
     {
-
         //Related to the Camera.
         private        float   farPlaneDist ;
         private        float   fieldOfView  ;
