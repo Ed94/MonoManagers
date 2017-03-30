@@ -1,14 +1,16 @@
-﻿//Monogame
-using Microsoft.Xna.Framework;
+//C#
+using System;
+//Monogame
+using Microsoft.Xna.Framework         ;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input   ;
 //DIV
 using Content;
-using System;
+
 
 namespace AbstractRealm.Realm_Space
 {
-    class Triangle : RealmControl
+    class Triangle : RealmControl   //A test 2D triangle for early 3D space testing.
     {
         VertexPositionColor[] triangleVertices;
         VertexBuffer          vertexBuffer    ;
