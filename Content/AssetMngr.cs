@@ -1,7 +1,10 @@
-﻿using System                          ;
+//C#
+using System;
 using System.Collections.Generic      ;
+//Monogame
 using Microsoft.Xna.Framework.Content ;
 using Microsoft.Xna.Framework.Graphics;
+//Game
 using static Content.AssetLib;
 
 namespace Content
