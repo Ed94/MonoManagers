@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dreams_in_Vapor.Options
+namespace Game_Namespace.Options
 {
     class Controls
     {
