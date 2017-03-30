@@ -1,5 +1,5 @@
-# MonoManagers
-Work In Progress: A set of structures that can be used in any monogame project.
+# Abstract Realm
+Work In Progress: An engine for 2D game with 3D mechanics.
 
 I'm currently working on  game as both a long term hobby with buissness prospects and to learn C#. I'm using monogame to aid in the process and it has been great. 
 
