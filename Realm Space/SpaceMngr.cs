@@ -1,11 +1,12 @@
 ﻿//This is a massive WIP. Learning 3D implamentation for this game.
+//C#
+using System;
 //Monogame
 using Microsoft.Xna.Framework;
-//DIV
-using Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using Dreams_in_Vapor;
+//DIV
+using Content       ;
+using Game_NameSpace;
 
 namespace AbstractRealm.Realm_Space
 {
@@ -13,32 +14,26 @@ namespace AbstractRealm.Realm_Space
     {
 
         //Related to the Camera.
-        private float   farPlaneDist;
-        private float   fieldOfView  ;
-        private float   nearPlaneDist;
-        public static  float scale;
+        private        float   farPlaneDist ;
+        private        float   fieldOfView  ;
+        private        float   nearPlaneDist;
+        public static  float   scale        ;
         
-        
-
-        public static Vector2 center;
+        public static Vector2 center    ;
         public static Vector2 scaleVec2D;
 
         public static Vector3 camPosition;
         public static Vector3 camTarget  ;
-        public static Vector3 scaleVec3D;
+        public static Vector3 scaleVec3D ;
 
         public static Matrix view         ;   //ViewMatrix       Equivalent
         public static Matrix camPerception;   //ProjectionMatrix Equivalent
         public static Matrix area         ;   //Considered the world matrix by monogame. 
-
         
         private float  aspectRatio;
 
-
-
         public SpaceMngr()
         {
-            Console.WriteLine("We are in space manaer");
             fieldOfView   = MathHelper.ToRadians(90f);
 
             nearPlaneDist =     1f;
@@ -80,7 +75,7 @@ namespace AbstractRealm.Realm_Space
     }
 }
 
-//General Stuff here.
+//General Stuff here. Not implemented yet.
 //private static float   angleInRadians;
 //private static float   pitch;
 //private static float   roll;
