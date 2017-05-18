@@ -2,7 +2,7 @@
 Work In Progress: An engine skeleton for 2D game with 3D mechanics.
 
 (What do you mean by skeleton?)
-The code needs to be tied together in your own game as you see fit. This just has a great amount of the managament strutures and other things done off the bat when wanting to make a game similar to the one this was intended for. Eventually I plan to make this into a extension for monogame.
+The code needs to be tied together in a game as the user sees fit. This just has a great amount of the managament strutures and other things done off the bat when wanting to make a game similar to the one this was intended for. Eventually I plan to make this into a extension for monogame.
 
 I'm currently working on  game as both a long term hobby with buissness prospects and to learn C#. I'm using monogame to aid in the process and it has been great. 
 
