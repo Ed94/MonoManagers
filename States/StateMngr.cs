@@ -1,8 +1,8 @@
-//C#
+﻿//C#
 using System;
 //DIV
-using Content;
-
+using AbstractRealm.Input;
+using AbstractRealm.Assets;
 
 namespace AbstractRealm.States
 {
@@ -10,44 +10,51 @@ namespace AbstractRealm.States
     {
         public enum ARstate
         {
-            TestTri      ,
-            TestBill     ,
+            Test_v1,
         }
 
         ARstate crtState;
 
-        TestTri       testTri     ;
-        TestBill      testBill    ;
+        Test_v1       test_v1;
+
 
         public StateMngr()
         {
-            crtState = ARstate.testTri                                    Console.WriteLine("State manager created."+ "\n");
+            crtState = ARstate.AR_Launch;                                    //Console.WriteLine("State manager created."+ "\n");
+        }
+
+
+        public void setCRTState(ARstate newState, AssetMngr assetMngr)
+        {
+            crtState = newState;
+
+            assetMngr.unload();
 
             initalizeState();
         }
 
+        public ARstate getCRTState()
+        {
+            return crtState;
+        }
+
+        //--------------------------------------------------------
         public void initalizeState()
         {
             switch (crtState)
             {
-                case ARstate.TestTri      :
-                    testTri      = new TestTri      ();
-                    break;
-                case ARstate.TestBill     :
-                    testBill     = new TestBill();
+                case ARstate.Test_v1:
+                    test_v1 = new Test_v1();
                     break;
             }
         }
 
-        public void updateStates()
+        public void updateStates(InputMngr inputMngr)
         {
             switch (crtState)
             {
-                case ARstate.TestTri      :
-                    testTri     .Update();
-                    break;
-                case ARstate.TestBill     :
-                    testBill    .Update();
+                case ARstate.Test_v1:
+                    test_v1.Update(inputMngr);
                     break;
             }
         }
@@ -56,20 +63,10 @@ namespace AbstractRealm.States
         {
             switch (crtState)
             {
-                case ARstate.TestTri      :
-                    testTri     .Draw(AssetMngr.spriteBatch, AssetMngr.basicEffect);
-                    break;
-                case ARstate.TestBill     :
-                    testBill    .Draw(AssetMngr.spriteBatch, AssetMngr.basicEffect);
+                case ARstate.Test_v1:
+                    test_v1.Draw();
                     break;
             }
-        }
-
-        public void setCRTState(ARstate newState)
-        {
-            crtState = newState;
-
-            initalizeState();
         }
     }
 }

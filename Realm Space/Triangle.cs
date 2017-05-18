@@ -1,16 +1,14 @@
-//C#
-using System;
-//Monogame
-using Microsoft.Xna.Framework         ;
+﻿//Monogame
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input   ;
 //DIV
-using Content;
-
+using AbstractRealm.Assets;
+using System;
+using AbstractRealm.Input;
 
 namespace AbstractRealm.Realm_Space
 {
-    class Triangle : RealmControl   //A test 2D triangle for early 3D space testing.
+    class Triangle
     {
         VertexPositionColor[] triangleVertices;
         VertexBuffer          vertexBuffer    ;
@@ -29,68 +27,12 @@ namespace AbstractRealm.Realm_Space
             vertexBuffer.SetData<VertexPositionColor>(triangleVertices);
         }
 
-        public override void Update()
+        public void Update(InputMngr inputMngr)
         {
-            //Basic Hori and Vert
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                SpaceMngr.camPosition.X -= 1f;
-                SpaceMngr.camTarget  .X -= 1f;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                SpaceMngr.camPosition.X += 1f;
-                SpaceMngr.camTarget  .X += 1f;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
-            {
-                SpaceMngr.camPosition.Y -= 1f;
-                SpaceMngr.camTarget  .Y -= 1f;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
-            {
-                SpaceMngr.camPosition.Y += 1f;
-                SpaceMngr.camTarget  .Y += 1f;
-            }
-
-            //Rotation
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                Matrix rotationMatrix = Matrix.CreateRotationY(MathHelper.ToRadians(1f));
-                SpaceMngr.camPosition = Vector3.Transform(SpaceMngr.camPosition, rotationMatrix);
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                Matrix rotationMatrix = Matrix.CreateRotationY(MathHelper.ToRadians(-1f));
-                SpaceMngr.camPosition = Vector3.Transform(SpaceMngr.camPosition, rotationMatrix);
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                Matrix rotationMatrix = Matrix.CreateRotationX(MathHelper.ToRadians(1f));
-                SpaceMngr.camPosition = Vector3.Transform(SpaceMngr.camPosition, rotationMatrix);
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                Matrix rotationMatrix = Matrix.CreateRotationX(MathHelper.ToRadians(-1f));
-                SpaceMngr.camPosition = Vector3.Transform(SpaceMngr.camPosition, rotationMatrix);
-            }
-
-            //Zoom
-            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
-            {
-                SpaceMngr.camPosition.Z += 1f;
-                SpaceMngr.camTarget.Z += 1f;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.LeftControl))
-            {
-                SpaceMngr.camPosition.Z -= 1f;
-                SpaceMngr.camTarget.Z -= 1f;
-            }
-
-            SpaceMngr.view = Matrix.CreateLookAt(SpaceMngr.camPosition, SpaceMngr.camTarget, Vector3.Up);
+            
         }
 
-        public override void Draw(SpriteBatch spriteBatch, BasicEffect basicEffect)
+        public void Draw(BasicEffect basicEffect)
         {
             basicEffect.Alpha              = 1.0f ;
             basicEffect.TextureEnabled     = false;

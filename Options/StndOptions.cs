@@ -1,34 +1,25 @@
 ﻿//C#
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-//Game
-using AbstractRealm;
+
+//DIV
 
 namespace AbstractRealm.Options
 {
-    class StndOptions  //Standard Options
+    public class StndOptions  //Standard Options
     {
         //Constructor
-        public StndOptions(bool firstRun, Profile profile)
+        public StndOptions()
         {
-                                                                Console.WriteLine("Running Standard Options class.");
-            if (firstRun == true)
-            {
-                                                                Console.WriteLine("Detected first run.");
-                createPaths(profile);
-            }
+            Console.WriteLine("Running Standard Options class.");
         }
 
         //Methods
-        private void createPaths(Profile profile)
-        {
+        public static void createPaths()
+        {                                               Console.WriteLine("Creating Options folder." + "\n");
             string OptionsPath = @"Users";
-                   OptionsPath = Path.Combine(OptionsPath, profile.Name);
-                   OptionsPath = Path.Combine(OptionsPath, "Options"   );       Console.WriteLine("Creating Options folder." + "\n");
+                   OptionsPath = Path.Combine(OptionsPath, ProfileMngr.currentProfile.profileName);
+                   OptionsPath = Path.Combine(OptionsPath, "Options"                             );         
 
             Directory.CreateDirectory(OptionsPath);
         }

@@ -5,18 +5,18 @@ using System.IO;
 //Monogame
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-//Game
 using AbstractRealm.Interface;
-using Content;
+//DIV
+using AbstractRealm.Input;
 
 namespace AbstractRealm.Options
 {
-    class Display   //Manages Things related to videocard output.
+    public class Display   //Manages Things related to videocard output.
     {
-        public static bool               showFPS      = false                  ;
-        public static FrameCounter       framecounter = new FrameCounter     ();
-        private static List<DisplayMode> supportedRes = new List<DisplayMode>();   //Holds supportedDisplayResolutions while program is running.
-        private GraphicsDeviceManager gDevice;
+        public  static bool                  showFPS      = false                  ;
+        private static List<DisplayMode>     supportedRes = new List<DisplayMode>();
+        public         FrameCounter          framecounter = new FrameCounter();
+        private        GraphicsDeviceManager gDevice;
 
         private static string[] display =   //Holds display settings while program is running.
         {                              //Index
@@ -26,27 +26,21 @@ namespace AbstractRealm.Options
             "Fullscreen    = false",   //3
             "VSync         = false",   //4
             "Multisampling = false",   //5
-            "ShowFPS       = true",    //6
+            "ShowFPS       = true ",   //6
         };
 
         //Other things...
         //this.TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 33);   // 30 FPS
 
         //Constructor
-        public Display(bool firstRun, Profile profile, GraphicsDeviceManager passedGDevice)
-        {                                       Console.WriteLine("Running Display          class."+ "\n");
+        public Display(GraphicsDeviceManager passedGDevice)
+        {                                           Console.WriteLine("Running Display          class."+ "\n");
             gDevice = passedGDevice;
 
             gDevice.HardwareModeSwitch = false;
 
-            if (firstRun == true)
-            {
-                saveDisplay(profile);
+            getSupportedRes();
 
-            }
-
-            getSupportedRes  (profile );
-            readDisplay      (profile );
             update(passedGDevice);
         }
 
@@ -65,13 +59,15 @@ namespace AbstractRealm.Options
             //Multisampling
             if   (display[5].Contains("true")) { gDeviceMngr.PreferMultiSampling = true ; }
             else                               { gDeviceMngr.PreferMultiSampling = false; }
+            //Texture Filtering
+
 
             gDeviceMngr.ApplyChanges();
         }
 
-        public void updatePPS()
+        public void updatePPS(InputMngr inputMngr)
         {
-            framecounter.Update();
+            framecounter.Update(inputMngr);
         }
 
         public void draw(SpriteBatch spriteBatch, BasicEffect basicEffect, float deltaTime)
@@ -81,11 +77,17 @@ namespace AbstractRealm.Options
         }
 
         //Class I/O functions
-        private void readDisplay(Profile profile)
+        public void saveDisplay()
+        {
+            saveConfig     ();
+            getSupportedRes();
+        }
+
+        private void readConfig()
         {
                                                                             Console.WriteLine("Getting display settings."+ "\n");
             String filePath = @"Users"                             ;
-                   filePath = Path.Combine(filePath, profile.Name );
+                   filePath = Path.Combine(filePath, ProfileMngr.currentProfile.profileName );
                    filePath = Path.Combine(filePath, "Options"    );
                    filePath = Path.Combine(filePath, "Display.txt");
 
@@ -103,53 +105,46 @@ namespace AbstractRealm.Options
 
         public void changeDisplay()
         {
-            display[1] = "640";
-            display[2] =  "480";
-            display[3] = "Fullscreen    = false";
+            display[1] =  "1024";
+            display[2] =   "768";
+            display[3] = "Fullscreen = false";
 
             update(gDevice);
         }
 
-        private void saveDisplay(Profile profile)
-        {
-                                                                            Console.WriteLine("Saving Display Settings.");
-            String filePath = @"Users"                             ;
-                   filePath = Path.Combine(filePath, profile.Name );
-                   filePath = Path.Combine(filePath, "Options"    );
-                   filePath = Path.Combine(filePath, "Display.txt");
+        public static void saveConfig()
+        {                                                                                           //Console.WriteLine("Saving config to profile.");
+            String displayPath = @"Users"                                                         ;
+                   displayPath = Path.Combine(displayPath, ProfileMngr.currentProfile.profileName);
+                   displayPath = Path.Combine(displayPath, "Options"                             );
+                   displayPath = Path.Combine(displayPath, "Display.txt"                         );
 
-            using (StreamWriter file = new StreamWriter(filePath))
+            String spResPath = @"Users"                                                       ;
+                   spResPath = Path.Combine(spResPath, ProfileMngr.currentProfile.profileName);
+                   spResPath = Path.Combine(spResPath, "Options"                             );
+                   spResPath = Path.Combine(spResPath, "Supported Resolutions.txt"           );
+
+            using (StreamWriter file = new StreamWriter(displayPath))
             {
                 foreach (string line in display)
-                    {
+                {
                         file.WriteLine(line);
-                    }
+                }
+                foreach (DisplayMode line in supportedRes)
+                {
+
+                }
             }
         }
         //Managing Supported Resolutions
-        private void getSupportedRes(Profile profile)
-        {
-                                                                                                    Console.WriteLine("Getting supported resolutions."+ "\n");
+        private void getSupportedRes()
+        {                                                                                        //Console.WriteLine("Getting supported resolutions."+ "\n");
             foreach (DisplayMode mode in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
             {
                 supportedRes.Add(mode);
             }
-
-            String filePath = @"Users"                                           ;
-                   filePath = Path.Combine(filePath, profile.Name               );
-                   filePath = Path.Combine(filePath, "Options"                  );
-                   filePath = Path.Combine(filePath, "Supported Resolutions.txt");
-            
-            using (StreamWriter file = new StreamWriter(filePath))
-            {
-                foreach (DisplayMode line in supportedRes)
-                {
-                    Console.WriteLine(line);
-                    file.WriteLine(line);
-                }
-            }
-            Console.WriteLine();
         }
+
         public static int getRes(string side)   //Get values related to resoltuion.
         {
             if      (side.Equals("height"))
