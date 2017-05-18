@@ -18,7 +18,7 @@ namespace AbstractRealm
     public partial class AR   //Abstract Realm Core Class       
     {
         //Vars and Objects
-        private Dreamer dreamer;   //Passed Game override class for div.
+        private Game game;   //Passed Game override class for div.
 
         private ContentManager            content;   //Base content managment for monogame.
         public  GraphicsDeviceManager gDeviceMngr;   //Graphics managment related to monogame.
