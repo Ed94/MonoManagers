@@ -1,39 +1,29 @@
-﻿using Microsoft.Xna.Framework;
+﻿//C#
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+//Monogame
+using Microsoft.Xna.Framework;
+
 
 namespace AbstractRealm.Mechanics
 {
     public class BoundedShape
     {
-        object boundThing;
-
-        BoundedShape(Type shape, float size, Vector3 position)
+        //Public
+        public BoundedShape(Type shape, float size, Vector3 position)
         {
-            if (shape == typeof(BoundingBox))
-            {
-                boundThing = new BoundingBox(Vector3.Zero, position);
-            }
-
+            if (shape == typeof(BoundingBox   ))
+                boundThing = new BoundingBox   (Vector3.Zero, position);
             if (shape == typeof(BoundingSphere))
-            {
-                boundThing = new BoundingSphere(Vector3.Zero, size);
-            }
+                boundThing = new BoundingSphere(Vector3.Zero, size    );
         }
 
         public void addBoundShape()
-        {
-
-        }
+        { }
 
         public object getBoundThing()
-        {
-            return boundThing;
-        }
+        { return boundThing; }
 
-
+        //Private
+        private object boundThing;
     }
 }

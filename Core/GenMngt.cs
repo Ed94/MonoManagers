@@ -1,57 +1,27 @@
-﻿using AbstractRealm.Realm_Space;
-using AbstractRealm.Assets;
+﻿//C#
+using System;
+//Monogame
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using AbstractRealm.Input;
-using AbstractRealm.Interface;
-using AbstractRealm.States;
-using AbstractRealm.Options;
+//AbstractRealm
+using AbstractRealm.Assets      ;
+using AbstractRealm.Input       ;
+using AbstractRealm.Interface   ;
+using AbstractRealm.Options     ;
+using AbstractRealm.Realm_Space ;
+using AbstractRealm.States      ;
+
 
 namespace AbstractRealm
 {
     public partial class AR   //General Managment Sector
     {
-        //Vars and Objects
-        public static bool wake { get; set; }
-
-        public static AssetMngr assetMngr;   //Handles all assets of the game.
-        public static InputMngr inputMngr;   //Hanldes all inputs.
-        public static UiMngr       uiMngr;   //Handles Ui.
-        public static SpaceMngr spaceMngr;   //Handles all existing spaces.
-        public static StateMngr stateMngr;   //Base handler for game states.
-
-        public static ProfileMngr profileMngr;   //Handles user profiles.
-
-        public static StndOptions options;   //Standard game configruation.
-        public static Display     display;   //Display configuration.
-
-        //Update and Draw syncronization and rate keeping;
-        public float deltaTime;
-
-        public long refreshRate;
-        public long updateRate ;
-
-        TimeSpan updateInterval ;
-        TimeSpan refreshInterval;
-
-        TimeSpan updateCount = new TimeSpan(0);
-
-        //Functions
-        private void updateTiming() //Able to change the update and refreshrate of the game.
-        {
-            updateRate = 1000;   //Configurable from standard options?
-            refreshRate = 144;   //Configurable from Display  class.
-
-            updateInterval  = new TimeSpan((long)10000000 / updateRate );   //Converts the specified upaterate   to its rate in ticks.
-            refreshInterval = new TimeSpan((long)10000000 / refreshRate);   //Converts the specified refreshrate to its rate in ticks.
-        }
-
+        //Public
         public void update(GameTime gameTime)
         {
-            if(wake == true)
+            if (wake == true)
             {
-                dreamer.Exit();
+                gIni.Exit();
             }
 
             while (updateCount <= refreshInterval)
@@ -71,18 +41,46 @@ namespace AbstractRealm
 
         public void draw()
         {
+            gDeviceMngr.GraphicsDevice.Clear(Color.Black);
+
             assetMngr.spriteBatch.Begin();
-            assetMngr.spriteBatch.End  ();
+            assetMngr.spriteBatch.End();
 
             RasterizerState rasterizerState = new RasterizerState();
 
             rasterizerState.CullMode = CullMode.None;
             rasterizerState.FillMode = FillMode.Solid;
 
-            AssetMngr.gDevice.RasterizerState = rasterizerState;
+            assetMngr.gDevice.RasterizerState = rasterizerState;
 
             stateMngr.drawState();
-            display.draw       (assetMngr.spriteBatch, assetMngr.basicEffect, deltaTime);
+
+            display.draw(assetMngr.spriteBatch, assetMngr.basicEffect, deltaTime);
         }
+
+        public static bool  wake      { get; set; }   //Used for termination.
+        public static float deltaTime { get; set; }   //Update and Draw syncronization and rate keeping;
+
+        public static AssetMngr   assetMngr  ;   //Handles all assets of the game.
+        public static InputMngr   inputMngr  ;   //Hanldes all inputs.
+        public static ProfileMngr profileMngr;   //Handles user profiles.
+        public static SpaceMngr   spaceMngr  ;   //Handles all existing spaces.
+        public static StateMngr   stateMngr  ;   //Base handler for game states.
+        public static UiMngr      uiMngr     ;   //Handles Ui.
+        
+        public static StndOptions options;   //Standard game configruation.
+        public static Display     display;   //Display configuration.
+
+        //Private
+        private void updateTiming() //Able to change the update and refresh rate of the game.
+        {
+            updateInterval  = new TimeSpan( (long)(10000000 / options.updateRate) );   //Converts the specified upaterate   to its rate in ticks.
+            refreshInterval = new TimeSpan( (long)(10000000 / display.framerate ) );   //Converts the specified refreshrate to its rate in ticks.
+        }
+
+        private TimeSpan updateInterval ;
+        private TimeSpan refreshInterval;
+
+        private TimeSpan updateCount = new TimeSpan(0);
     }
 }

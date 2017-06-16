@@ -1,39 +1,95 @@
-﻿//C#
-using System.Collections.Generic;
-//Monogame
+﻿//Monogame
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-//DIV
-using AbstractRealm.Assets;
-using System;
-using Microsoft.Xna.Framework.Input;
-using Game;
-using AbstractRealm.Input;
+
 
 namespace AbstractRealm.Realm_Space
 {
     public class RigidBillboard
     {
-        float   scale     ;
-        Vector3 resolution;
-        Vector3 size      ;
-
-        VertexPositionTexture[] rigidBillVert;
-        VertexBuffer            vertbuffer   ;
-
-        Texture2D billTexture;
-
-        //Constructor
+        //Public
         public RigidBillboard(Texture2D passedTexture)
         {
-            billTexture = passedTexture;
-
-            resolution = new Vector3(billTexture.Width, billTexture.Height, 0);
+            billTexture = passedTexture                                        ;
+            resolution  = new Vector3(billTexture.Width, billTexture.Height, 0);
 
             createBillboardVertices(resolution);
         }
 
-        //Functions
+
+        public Vector3 getCenter(Vector3 size)
+        { return new Vector3(size.X / 2, size.Y / 2, 0); }
+
+        public void setSize(Vector3 size)
+        { this.size = size; createBillboardVertices(size); }
+
+        public Vector3 getSize()
+        { return size; }
+
+        public void setTexture(Texture2D texture)
+        { billTexture = texture;
+        }
+
+        public void scaleBillboard(float scale)
+        {
+            this.scale = scale;
+
+            for (int i = 0; i < 6; i++)
+                rigidBillVert[i].Position = Vector3.Multiply(rigidBillVert[i].Position, scale);
+
+            size = new Vector3(rigidBillVert[2].Position.X * 2, rigidBillVert[2].Position.Y * 2, 0);
+        }
+
+        public void moveBillboard(Vector3 displacement)
+        {
+            for (int i = 0; i < 6; i++)
+                rigidBillVert[i].Position = rigidBillVert[i].Position + displacement;
+        }
+
+        public void setPosition(Vector3 position)
+        {
+            rigidBillVert[0].Position = new Vector3(size.X,      0, 0);   //Triangle 1
+            rigidBillVert[1].Position = new Vector3(     0, size.Y, 0);
+            rigidBillVert[2].Position = new Vector3(size.X, size.Y, 0);
+
+            rigidBillVert[3].Position = new Vector3(     0, size.Y, 0);   //Triangle 2
+            rigidBillVert[4].Position = new Vector3(size.X,      0, 0);
+            rigidBillVert[5].Position = new Vector3(     0,      0, 0);
+
+            Vector3 centerOffset = -getCenter(size);
+
+            moveBillboard(centerOffset);
+
+            for (int i = 0; i < 6; i++)
+            {
+                rigidBillVert[i].Position = rigidBillVert[i].Position + position;
+            }
+        }
+
+        public void update()
+        { vertbuffer.SetData(rigidBillVert); }
+
+        public void draw(BasicEffect basicEffect)
+        {
+            basicEffect.Alpha              = 1.0f       ;
+            basicEffect.VertexColorEnabled = false      ;
+            basicEffect.TextureEnabled     = true       ;
+            basicEffect.Texture            = billTexture;
+
+            basicEffect.Projection = SpaceMngr.camPerception;
+            basicEffect.View       = SpaceMngr.view         ;
+            basicEffect.World      = SpaceMngr.area         ;
+
+            AR.assetMngr.gDevice.SetVertexBuffer(vertbuffer);
+
+            foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+                AR.assetMngr.gDevice.DrawUserPrimitives(PrimitiveType.TriangleList, rigidBillVert, 0, 2);
+            }
+        }
+
+        //Private
         private void createBillboardVertices(Vector3 passedSize) //This does not work....
         {
             size = passedSize;
@@ -60,97 +116,17 @@ namespace AbstractRealm.Realm_Space
 
             moveBillboard(centerOffset);
 
-            vertbuffer = new VertexBuffer(AssetMngr.gDevice, typeof(VertexPositionTexture), 6, BufferUsage.None);
+            vertbuffer = new VertexBuffer(AR.assetMngr.gDevice, typeof(VertexPositionTexture), 6, BufferUsage.None);
             vertbuffer.SetData(rigidBillVert);
         }
 
-        public Vector3 getCenter(Vector3 size)
-        {
-            Vector3 center = new Vector3(size.X / 2, size.Y/ 2, 0);
 
-            return center;
-        }
+        private float scale;
 
-        public void setSize(Vector3 passedSize)
-        {
-            size = passedSize;
-
-            createBillboardVertices(size);
-        }
-
-        public Vector3 getSize()
-        {
-            return size;
-        }
-
-        public void setTexture(Texture2D newTexture)
-        {
-            billTexture = newTexture;
-        }
-
-        public void scaleBillboard(float passedScale)
-        {
-            scale = passedScale;
-
-            for (int i = 0; i < 6; i++)
-            {
-                rigidBillVert[i].Position =  Vector3.Multiply  (rigidBillVert[i].Position, scale);
-            }
-
-            size = new Vector3(rigidBillVert[2].Position.X*2, rigidBillVert[2].Position.Y*2, 0);
-        }
-
-        public void moveBillboard(Vector3 displacement)
-        {
-           for (int i = 0; i < 6; i++)
-            {
-                rigidBillVert[i].Position = rigidBillVert[i].Position + displacement;
-            }
-        }
-
-        public void setPosition(Vector3 position)
-        {
-            rigidBillVert[0].Position = new Vector3(size.X,      0, 0);   //Triangle 1
-            rigidBillVert[1].Position = new Vector3(     0, size.Y, 0);
-            rigidBillVert[2].Position = new Vector3(size.X, size.Y, 0);
-
-            rigidBillVert[3].Position = new Vector3(     0, size.Y, 0);   //Triangle 2
-            rigidBillVert[4].Position = new Vector3(size.X,      0, 0);
-            rigidBillVert[5].Position = new Vector3(      0,     0, 0);
-
-            Vector3 centerOffset = -getCenter(size);
-
-            moveBillboard(centerOffset);
-
-            for (int i = 0; i < 6; i++)
-            {
-                rigidBillVert[i].Position = rigidBillVert[i].Position + position;
-            }
-        }
-
-        public void Update()
-        {
-            vertbuffer.SetData(rigidBillVert);
-        }
-
-        public void Draw(BasicEffect basicEffect)
-        {
-            basicEffect.Alpha              = 1.0f;
-            basicEffect.VertexColorEnabled = false;
-            basicEffect.TextureEnabled     = true;
-            basicEffect.Texture            = billTexture;
-
-            basicEffect.Projection = SpaceMngr.camPerception;
-            basicEffect.View       = SpaceMngr.view;
-            basicEffect.World      = SpaceMngr.area;
-
-            AssetMngr.gDevice.SetVertexBuffer(vertbuffer);
-
-            foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
-            {
-                pass.Apply();
-                AssetMngr.gDevice.DrawUserPrimitives(PrimitiveType.TriangleList, rigidBillVert, 0, 2);
-            }
-        }
+        private Vector3                 resolution   ;
+        private Vector3                 size         ;
+        private VertexBuffer            vertbuffer   ;
+        private VertexPositionTexture[] rigidBillVert;
+        private Texture2D               billTexture  ;
     }
 }

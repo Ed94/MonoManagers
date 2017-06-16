@@ -1,50 +1,32 @@
 ﻿//C#
-using System;
+using System                    ;
 using System.Collections.Generic;
-using System.IO;
+using System.IO                 ;
 //Monogame
-using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework         ;
 using Microsoft.Xna.Framework.Graphics;
-using AbstractRealm.Interface;
-//DIV
+using AbstractRealm.Interface         ;
+//AbstractRealm
 using AbstractRealm.Input;
+
 
 namespace AbstractRealm.Options
 {
     public class Display   //Manages Things related to videocard output.
     {
-        public  static bool                  showFPS      = false                  ;
-        private static List<DisplayMode>     supportedRes = new List<DisplayMode>();
-        public         FrameCounter          framecounter = new FrameCounter();
-        private        GraphicsDeviceManager gDevice;
-
-        private static string[] display =   //Holds display settings while program is running.
-        {                              //Index
-            "Resolution:"          ,   //0
-            "1280"                 ,   //1
-            "720"                  ,   //2
-            "Fullscreen    = false",   //3
-            "VSync         = false",   //4
-            "Multisampling = false",   //5
-            "ShowFPS       = true ",   //6
-        };
-
-        //Other things...
-        //this.TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 33);   // 30 FPS
-
-        //Constructor
+        //Public
         public Display(GraphicsDeviceManager passedGDevice)
-        {                                           Console.WriteLine("Running Display          class."+ "\n");
-            gDevice = passedGDevice;
-
+        {
+            gDevice                    = passedGDevice;
             gDevice.HardwareModeSwitch = false;
 
-            getSupportedRes();
+            getSupportedRes             ();
+            update         (passedGDevice);
 
-            update(passedGDevice);
+            framerate = 144;
         }
 
-        //General Methods
+        //General
         public void update(GraphicsDeviceManager gDeviceMngr)
         {
             //Resolution
@@ -59,23 +41,18 @@ namespace AbstractRealm.Options
             //Multisampling
             if   (display[5].Contains("true")) { gDeviceMngr.PreferMultiSampling = true ; }
             else                               { gDeviceMngr.PreferMultiSampling = false; }
-            //Texture Filtering
-
 
             gDeviceMngr.ApplyChanges();
         }
 
         public void updatePPS(InputMngr inputMngr)
-        {
-            framecounter.Update(inputMngr);
-        }
+        { framecounter.Update(inputMngr); }
 
         public void draw(SpriteBatch spriteBatch, BasicEffect basicEffect, float deltaTime)
         {
-            //ShowFPS
-            if (display[6].Contains("true")) { framecounter.Draw(spriteBatch, basicEffect, deltaTime); }
+            if (display[6].Contains("true"))
+                framecounter.Draw(spriteBatch, basicEffect, deltaTime);
         }
-
         //Class I/O functions
         public void saveDisplay()
         {
@@ -85,22 +62,15 @@ namespace AbstractRealm.Options
 
         private void readConfig()
         {
-                                                                            Console.WriteLine("Getting display settings."+ "\n");
-            String filePath = @"Users"                             ;
+            String filePath = @"Users"                                                       ;
                    filePath = Path.Combine(filePath, ProfileMngr.currentProfile.profileName );
-                   filePath = Path.Combine(filePath, "Options"    );
-                   filePath = Path.Combine(filePath, "Display.txt");
+                   filePath = Path.Combine(filePath, "Options"                              );
+                   filePath = Path.Combine(filePath, "Display.txt"                          );
 
             int index = 0;
 
             foreach (string line in File.ReadLines(filePath))
-            {
-                display[index] = line;
-                                                                            Console.WriteLine(line);
-
-                index++;
-            }
-                                                                            Console.WriteLine();
+                display[index++] = line;
         }
 
         public void changeDisplay()
@@ -112,8 +82,8 @@ namespace AbstractRealm.Options
             update(gDevice);
         }
 
-        public static void saveConfig()
-        {                                                                                           //Console.WriteLine("Saving config to profile.");
+        public void saveConfig()
+        {
             String displayPath = @"Users"                                                         ;
                    displayPath = Path.Combine(displayPath, ProfileMngr.currentProfile.profileName);
                    displayPath = Path.Combine(displayPath, "Options"                             );
@@ -126,39 +96,53 @@ namespace AbstractRealm.Options
 
             using (StreamWriter file = new StreamWriter(displayPath))
             {
-                foreach (string line in display)
-                {
-                        file.WriteLine(line);
-                }
+                foreach (string      line in display     )
+                    file.WriteLine(line);
                 foreach (DisplayMode line in supportedRes)
-                {
-
-                }
+                    file.WriteLine(line);
             }
         }
         //Managing Supported Resolutions
         private void getSupportedRes()
-        {                                                                                        //Console.WriteLine("Getting supported resolutions."+ "\n");
+        {                                                                                     
             foreach (DisplayMode mode in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
-            {
                 supportedRes.Add(mode);
-            }
         }
 
         public static int getRes(string side)   //Get values related to resoltuion.
         {
             if      (side.Equals("height"))
-            {
                 return Int32.Parse(display[1]);
-            }
-            else if (side.Equals("width"))
-            {
+            else if (side.Equals("width" ))
                 return Int32.Parse(display[1]);
-            }
             else
-            {
-                return 0;
-            }
+                return -1;
         }
+
+        public static bool  showFPS      = false;
+        public FrameCounter framecounter = new FrameCounter();
+
+        public ulong       framerate { get; set; }
+
+
+        //Private
+        private GraphicsDeviceManager gDevice;
+
+        private List<DisplayMode> supportedRes = new List<DisplayMode>();
+
+        private static string[] display =   //Holds display settings while program is running.
+        {                              //Index
+            "Resolution:"          ,   //0
+            "1280"                 ,   //1
+            "720"                  ,   //2
+            "Fullscreen    = false",   //3
+            "VSync         = false",   //4
+            "Multisampling = false",   //5
+            "ShowFPS       = true ",   //6
+            "Borderless    = false",   //7
+            "frameRate     = 144  ",   //8
+        };
+
+        //this.TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 33);   // 30 FPS
     }
 }

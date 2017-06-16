@@ -1,27 +1,30 @@
 ﻿//C#
-using System;
+using System   ;
 using System.IO;
 
-//DIV
 
 namespace AbstractRealm.Options
 {
     public class StndOptions  //Standard Options
     {
-        //Constructor
+        //Public
         public StndOptions()
-        {
-            Console.WriteLine("Running Standard Options class.");
-        }
+        { setup(); }
 
-        //Methods
+
         public static void createPaths()
-        {                                               Console.WriteLine("Creating Options folder." + "\n");
-            string OptionsPath = @"Users";
+        {
+            string OptionsPath = @"Users"                                                         ;
                    OptionsPath = Path.Combine(OptionsPath, ProfileMngr.currentProfile.profileName);
                    OptionsPath = Path.Combine(OptionsPath, "Options"                             );         
 
             Directory.CreateDirectory(OptionsPath);
         }
+
+        public ushort updateRate { get; set; }
+
+        //Private
+        private void setup()
+        { updateRate = 1000; }
     }
 }

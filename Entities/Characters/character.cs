@@ -1,28 +1,34 @@
-﻿using AbstractRealm.Mechanics;
-using AbstractRealm.Realm_Space;
-using Microsoft.Xna.Framework;
-using System;
+﻿//C#
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+//Monogame
+using Microsoft.Xna.Framework;
+//AbstractRealm
+using AbstractRealm.Assets     ;
+using AbstractRealm.Mechanics  ;
+using AbstractRealm.Realm_Space;
+
 
 namespace AbstractRealm.Entities
 {
-    public class character
+    public class character 
     {
-        protected Vector3        position   ;
-        protected BoundedBody    boundedBody;
-        protected RigidBillboard testSprite ;
+        //Public
+        public character(Vector3 position, AssetMngr assetMngr)
+        {
+            this.position = position;
+
+            boundedBody = new BoundedBody();
+        }
+
 
         public class BoundedBody
         {
-            Dictionary<string, BoundedShape> boundedParts;
-
+            //Public
             public BoundedBody()
             {
                 boundedParts = new Dictionary<string, BoundedShape>();
             }
+
 
             public void addPart(string name, BoundedShape boundedShape)
             {
@@ -35,7 +41,7 @@ namespace AbstractRealm.Entities
                 {
                     if (part.GetType() == typeof(BoundingBox))
                     {
-                       
+
                     }
                     if (part.GetType() == typeof(BoundingSphere))
                     {
@@ -43,21 +49,30 @@ namespace AbstractRealm.Entities
                     }
                 }
             }
-        }
 
-        public character(Vector3 passedPos)
-        {
-            position = passedPos;
-
-            boundedBody = new BoundedBody();
+            //Private
+            private Dictionary<string, BoundedShape> boundedParts;
         }
 
 
-        protected void move(Vector3 tranlsationVal)
+        public virtual void move(Vector3 tranlsationVal)
         {
             position = Vector3.Add(position, tranlsationVal);
 
+            testSprite.setPosition(position);
+
             //boundedBody.translate() allow for translation of bounded object.
         }
+
+        public virtual void Update() { }
+        public virtual void Draw  () { }
+
+        //Protected
+        protected virtual void loadAssets() { }
+
+        protected AssetMngr      assetMngr  ;
+        protected BoundedBody    boundedBody;
+        protected RigidBillboard testSprite ;
+        protected Vector3        position   ;
     }
 }

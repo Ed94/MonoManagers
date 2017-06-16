@@ -1,78 +1,62 @@
-﻿using System;
+﻿//C#
+using System;
+//Monogame
+using Microsoft.Xna.Framework         ;
 using Microsoft.Xna.Framework.Graphics;
+//AbstractRealm
+using AbstractRealm.Input      ;
 using AbstractRealm.Realm_Space;
-using Microsoft.Xna.Framework;
-using AbstractRealm.Input;
+
 
 namespace AbstractRealm.Interface
 {
     public class UiMngr
     {
-
-
-        public UiMngr()
-        {
-
-        }
-
-
         public static UIObj createUIObj(Texture2D passedText, Delegate passedDel, Tuple<int, int> passedPosition, float passedScale)
         {
             RigidBillboard uiBB = new RigidBillboard(passedText);
 
-            uiBB.scaleBillboard(passedScale);
-            uiBB.moveBillboard(new Vector3(passedPosition.Item1, passedPosition.Item2, 0));
+            uiBB.scaleBillboard(passedScale                                               );
+            uiBB.moveBillboard (new Vector3(passedPosition.Item1, passedPosition.Item2, 0));
 
-            UIObj uiObj = new UIObj(uiBB, passedDel, passedPosition);
-
-            return uiObj;
+            return new UIObj(uiBB, passedDel, passedPosition);
         }
 
         public static UIObj createUIObj(string name, Texture2D passedText, Delegate passedDel, Tuple<int, int> passedPosition, float passedScale)
         {
             RigidBillboard uiBB = new RigidBillboard(passedText);
 
-            uiBB.scaleBillboard(passedScale);
-            uiBB.moveBillboard(new Vector3(passedPosition.Item1, passedPosition.Item2, 0));
+            uiBB.scaleBillboard(passedScale                                               );
+            uiBB.moveBillboard (new Vector3(passedPosition.Item1, passedPosition.Item2, 0));
 
-            UIObj uiObj = new UIObj(name, uiBB, passedDel, passedPosition);
-
-            return uiObj;
+            return new UIObj(name, uiBB, passedDel, passedPosition);
         }
 
         public static void checkInput(UiGrid passedGrid, InputMngr inputMngr)
         {
-            if (inputMngr.checkInput(Input.InputMngr.controls.pressEnter))
+            if (inputMngr.checkInput(controls.pressEnter))
             {
                 UIObj activeObject = passedGrid.getSelObject();
 
                 activeObject.runInstruction();
             }
 
-            if (inputMngr.checkInput(Input.InputMngr.controls.pressUp   ))
-            {
+            if (inputMngr.checkInput(controls.pressUp   ))
                 passedGrid.updateGridPos(UiGrid.direction.up);
-            }
 
-            if (inputMngr.checkInput(Input.InputMngr.controls.pressLeft ))
-            {
+            if (inputMngr.checkInput(controls.pressLeft ))
                 passedGrid.updateGridPos(UiGrid.direction.left);
-            }
             
-            if (inputMngr.checkInput(Input.InputMngr.controls.pressDown ))
-            {
+            if (inputMngr.checkInput(controls.pressDown ))
                 passedGrid.updateGridPos(UiGrid.direction.down);
-            }
 
-            if (inputMngr.checkInput(Input.InputMngr.controls.pressRight))
-            {
+            if (inputMngr.checkInput(controls.pressRight))
                 passedGrid.updateGridPos(UiGrid.direction.right);
-            }
 
             passedGrid.updateSelected();
         }
 
-        public static void drawUi(UiGrid passedGrid, BasicEffect basicEffect)
+        public void drawUi(UiGrid passedGrid, BasicEffect basicEffect)
         {
             for(int posY = 0; posY < passedGrid.edge.Item2; posY++)
             {
@@ -82,9 +66,8 @@ namespace AbstractRealm.Interface
                     {
                         UIObj crtUiObj = passedGrid.getObject(posX, posY);
 
-                        passedGrid.selection.Draw(basicEffect);
-
-                        crtUiObj.billboard.Draw(basicEffect);
+                        passedGrid.selection.draw(basicEffect);
+                        crtUiObj  .billboard.draw(basicEffect);
                     }
                 }
             }

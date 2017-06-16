@@ -1,49 +1,48 @@
-﻿using AbstractRealm.Realm_Space;
+﻿//C#
 using System;
+//AbstractRealm
+using AbstractRealm.Realm_Space;
 
 
 namespace AbstractRealm.Interface
 {
     public class UIObj
     {
-        string name;
-
-        public RigidBillboard billboard;
-
-        public Tuple<int, int> position;
-
-        Delegate instruction;
-
+        //Public
         public UIObj(RigidBillboard passedBillboard, Delegate passedInstruction, Tuple<int, int> passedTuple)
         {
-            billboard = passedBillboard;
-
+            billboard   = passedBillboard  ;
             instruction = passedInstruction;
-
-            position = passedTuple;
+            position    = passedTuple      ;
         }
 
         public UIObj(string passedName, RigidBillboard passedBillboard, Delegate passedInstruction, Tuple<int, int> passedTuple)
         {
-            name = passedName;
-
-            billboard = passedBillboard;
-
+            billboard   = passedBillboard  ;
             instruction = passedInstruction;
-
-            position = passedTuple;
+            name        = passedName       ;
+            position    = passedTuple      ;
         }
+
 
         public void runInstruction()
         {
             if (name == null)
-            {
-                instruction.DynamicInvoke();
-            }
+                instruction.DynamicInvoke    ();
             else
-            {
                 instruction.DynamicInvoke(name);
-            }
         }
+
+        public Tuple<int, int> getPosition()
+        { return position; }
+
+
+        public RigidBillboard billboard;
+
+        //Private
+        private string name;
+
+        private Delegate        instruction;
+        private Tuple<int, int> position   ;
     }
 }

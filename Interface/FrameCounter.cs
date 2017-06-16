@@ -1,41 +1,33 @@
 ﻿//C#
-using System;
+using System                    ;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq               ;
+using System.Text               ;
+using System.Threading.Tasks    ;
 //Monogame
-using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework         ;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-//DIV
-using Dreams_in_Vapor;
+using Microsoft.Xna.Framework.Input   ;
+//AbstractRealm
+using Game                 ;
 using AbstractRealm.Options;
-using AbstractRealm.Assets;
-using AbstractRealm.Input;
+using AbstractRealm.Assets ;
+using AbstractRealm.Input  ;
 
-namespace AbstractRealm.Interface
+namespace AbstractRealm.Interface   //Need to get rid of this and implement a better performance statistics handler.
 {
     public class FrameCounter : RealmControl   //Based on: http://stackoverflow.com/questions/20676185/xna-monogame-getting-the-frames-per-second
     {
-        //Variables
         public const int MAXIMUM_SAMPLES = 4096;
 
         private static Queue<double> sampleBuffer   = new Queue<double>();
 
-        //Constructor
-        public FrameCounter()
-        {
-            
-        }
-
-        //Gets and Sets
         public static long   totalFrames  { get; private set; }
         public static double totalSeconds { get; private set; }
         public static double averageFPS   { get; private set; }
         public static double currentFPS   { get; private set; }
 
-        //Methods
+
         public static bool updateFps(float deltaTime)
         {
             currentFPS = 1.0d / deltaTime;
@@ -49,9 +41,7 @@ namespace AbstractRealm.Interface
                 averageFPS = sampleBuffer.Average(i => i);
             }
             else
-            {
                 averageFPS = currentFPS;
-            }
 
             totalFrames++            ;
             totalSeconds += deltaTime;

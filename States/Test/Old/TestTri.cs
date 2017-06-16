@@ -1,17 +1,19 @@
-﻿//Monogame
-using Microsoft.Xna.Framework.Graphics;
-//DIV
-using AbstractRealm.Realm_Space;
-using Dreams_in_Vapor;
-using Microsoft.Xna.Framework.Input;
-using AbstractRealm.Input;
+﻿//C#
 using System;
-using AbstractRealm;
-using Microsoft.Xna.Framework;
+//Monogame
+using Microsoft.Xna.Framework         ;
+using Microsoft.Xna.Framework.Input   ;
+using Microsoft.Xna.Framework.Graphics;
+//AbstractRealm
+using Game                     ;
+using AbstractRealm            ;
+using AbstractRealm.Input      ;
+using AbstractRealm.Realm_Space;
+
 
 namespace AbstractRealm.States
 {
-    public class TestTri : RealmControl
+    public class TestTri : RealmControl   //Old test state needs to be refactored.
     {
         string Instructions = "Controls: " + "\n"
                                 + "WASD Horizantal and Vertical Movement" + "\n"
@@ -25,8 +27,6 @@ namespace AbstractRealm.States
         public TestTri()
         {
             triangle = new Triangle();
-
-            
         }
 
         public override void Update(InputMngr inputMngr)
