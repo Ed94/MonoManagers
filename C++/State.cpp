@@ -7,28 +7,18 @@ namespace AbstractRealm
 		name = "This state was not properly initalized.";
 	}
 
-	State::~State()
+	State::State(std::string name					 ,
+				 std::function<void()> initDelegate  ,
+				 std::function<void()> deInitDelegate,
+				 std::function<void()> updateDelegate,
+				 std::function<void()> renderDelegate)
 	{
-
+		this->name = name;
+		this->initDelegate   = initDelegate  ;
+		this->deInitDelegate = deInitDelegate;
+		this->updateDelegate = updateDelegate;
+		this->renderDelegate = renderDelegate;
 	}
 
-	void State::initalize()
-	{
-
-	}
-
-	void State::deInit()
-	{
-
-	}
-
-	void State::update()
-	{
-
-	}
-
-	void State::render()
-	{
-
-	}
+	State::~State() {}
 }

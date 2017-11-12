@@ -1,10 +1,10 @@
 #pragma once
-
 #include "control.h"
 
-#include <string>
+#include <fstream  >
 #include <GL\glew.h>
-#include <fstream>
+#include <string   >
+#include <vector   >
 
 namespace AbstractRealm
 {
@@ -14,7 +14,7 @@ namespace AbstractRealm
 		 GLSL_Core();
 		~GLSL_Core();
 
-		GLuint getUniformLocation(const std::string& uniformName);
+		//GLuint getUniformLocation(const std::string& uniformName);
 
 		void add																			();
 		void addAttribute (const std::string &attributeName									 );

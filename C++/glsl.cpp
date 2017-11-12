@@ -1,5 +1,4 @@
 #include "shaders.h"
-#include "Debug.h"
 
 namespace AbstractRealm
 {

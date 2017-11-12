@@ -1,19 +1,13 @@
-#include <SDL.h>
-#include <iostream>
 #include "Input.h"
 #include "AR.h"
 
+#include <iostream>
+#include <SDL.h   >
+
 namespace AbstractRealm
 {
-	GenInputKbrd::GenInputKbrd()
-	{
-
-	}
-
-	GenInputKbrd::~GenInputKbrd()
-	{
-
-	}
+	GenInputKbrd:: GenInputKbrd() { }
+	GenInputKbrd::~GenInputKbrd() { }
 
 	void GenInputKbrd::checkPress(SDL_Event &inputEvent)
 	{
@@ -25,8 +19,5 @@ namespace AbstractRealm
 		}
 	}
 
-	void GenInputKbrd::checkHold()
-	{
-
-	}
+	void GenInputKbrd::checkHold() { }
 }

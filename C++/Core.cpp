@@ -4,9 +4,9 @@ namespace AbstractRealm
 {
 	Core::Core()
 	{
-		printf("AR Core started. \n");
+		printf("\nAR Core started. \n");
 
-		setup(); 
+		setup();
 
 		while (getExist())
 		{

@@ -1,6 +1,6 @@
 #pragma once
 #include <GL\glew.h>
-#include <vector>
+#include <vector   >
  
 //This header is organized by pointer heirarchy instead of alphabetical order.
 namespace AbstractRealm

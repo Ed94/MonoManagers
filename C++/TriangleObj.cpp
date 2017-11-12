@@ -2,15 +2,8 @@
 
 namespace AbstractRealm
 {
-	TriangleObj::TriangleObj()
-	{
-
-	}
-
-	TriangleObj::~TriangleObj()
-	{
-
-	}
+	TriangleObj:: TriangleObj() { }
+	TriangleObj::~TriangleObj() { }
 
 	void TriangleObj::renderTriangle()
 	{

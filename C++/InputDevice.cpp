@@ -2,13 +2,6 @@
 
 namespace AbstractRealm
 {
-	void InputDevice::checkHold()
-	{
-
-	}
-
-	void InputDevice::checkPress(SDL_Event &inputEvent)
-	{
-
-	}
+	void InputDevice::checkHold						 () { }
+	void InputDevice::checkPress(SDL_Event &inputEvent) { }
 }

@@ -5,7 +5,5 @@ namespace AbstractRealm
 	AssetMngr::AssetMngr()
 	{
 		printf("Asset Manager created. \n");
-
-		assetLib = AssetLib();
 	}
 }

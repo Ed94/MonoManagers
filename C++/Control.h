@@ -1,6 +1,7 @@
 #pragma once
-#include <string>
 #include <iostream>
+#include <string  >
+
 
 namespace AbstractRealm
 {
@@ -19,7 +20,7 @@ namespace AbstractRealm
 
 		//Existance Handling
 		bool getExist();
-		void cease();
+		void cease   ();
 
 	private:
 		//Vars

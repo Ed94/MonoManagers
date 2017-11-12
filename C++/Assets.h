@@ -1,7 +1,7 @@
 #pragma once
 #include <boost/filesystem.hpp>
-#include <map		>
-#include <string	>
+#include <map				  >
+#include <string			  >
 
 namespace fs = boost::filesystem;
 
@@ -10,8 +10,7 @@ namespace AbstractRealm
 	class Asset
 	{
 	public:
-		Asset();
-
+		Asset												();
 		Asset(const std::string name, const fs::path location);
 
 	private:

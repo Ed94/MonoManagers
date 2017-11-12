@@ -6,7 +6,7 @@ namespace AbstractRealm
 	class TriangleObj
 	{
 	public:
-		TriangleObj();
+		 TriangleObj();
 		~TriangleObj();
 
 		void renderTriangle();

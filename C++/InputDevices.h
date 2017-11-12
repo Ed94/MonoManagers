@@ -1,5 +1,6 @@
 #pragma once
 #include "Input.h"
+
 #include <SDL.h>
 
 namespace AbstractRealm
@@ -9,9 +10,6 @@ namespace AbstractRealm
 	public:
 		struct general : InputState
 		{
-		public:
-
-
 		private:
 			enum Controls
 			{
@@ -20,8 +18,6 @@ namespace AbstractRealm
 		};
 
 		void checkPress(SDL_Event &inputEvent);
-		void checkHold();
-
-	private:
+		void checkHold						();
 	};
 }

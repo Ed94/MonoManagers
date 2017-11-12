@@ -1,7 +1,11 @@
 #pragma once
-#include "AR.h"
+#include "2DObjects.h"
+#include "shaders.h"
 #include "State.h"
-#include "boost\function\function_base.hpp"
+#include "TestObjects.h"
+
+#include <GL\glew.h >
+#include <functional>
 
 namespace AbstractRealm
 {
@@ -11,28 +15,14 @@ namespace AbstractRealm
 		 StateMngr();
 		~StateMngr();
 
-		void setCRTState(State state, AssetMngr assetMngr);
+		void setCRTState(State state);
 
 		void initalizeState();
-		void deinitalize   ();
-		void updateStates  ();
-		void drawStates    ();
+		void destructState ();
+		void updateState   ();
+		void drawState     ();
 
 	private:
 		State crtState;
-
-		State rectTest;
-
-		//Rectangle Related Shit
-		std::string rectName;
-
-		void setupRectTest();
-
-		void rectInit  ();
-		void rectDeInit();
-		void rectUpdate();
-		void rectrender();
-
-		//AR_StateCompendium arStates;
 	};
 }

@@ -2,11 +2,11 @@
 
 int main(int argc, char* argv[])
 {
-	printf("Game Name  -------------   Ginit activated. \n\n");
+	printf("Game Name  -------------   gInit Activated. \n\n");
 
-	AbstractRealm::Core realm;
+	AbstractRealm::Core vaporizer;
 
-	realm.~Core();
+	vaporizer.~Core();
 
 	return 0;
 }

@@ -1,23 +1,27 @@
 #pragma once
 #include "Control.h"
-#include "AR_StateCompendium.h"
 
 #include <functional>
 
 namespace AbstractRealm
 {
-	class State : RealmControl
+	class State
 	{
 	public:
 		 State();
 
+		 State(std::string name,
+			   std::function<void()> initDelegate  ,
+			   std::function<void()> deInitDelegate,
+			   std::function<void()> updateDelegate,
+			   std::function<void()> renderDelegate );
+
 		~State();
 
-		void initalize();
-		void deInit   ();
-
-		void update();
-		void render();
+		std::function<void()> initDelegate  ;
+		std::function<void()> deInitDelegate;
+		std::function<void()> updateDelegate;
+		std::function<void()> renderDelegate;
 
 			 bool   active;
 		std::string	name  ;

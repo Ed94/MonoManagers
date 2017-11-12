@@ -1,10 +1,12 @@
 #include "2DObjects.h"
+
 #include <iostream>
-#include <cstddef>
+#include <cstddef >
 
 namespace AbstractRealm
 {
-	Sprite::Sprite() : vboID(0) { }
+	Sprite::Sprite() : vboID(0) 
+	{ rectangle = Rectangle(); }
 
 	Sprite::~Sprite()
 	{
@@ -19,15 +21,15 @@ namespace AbstractRealm
 		if (vboID == 0)
 			glGenBuffers(1, &vboID);
 
-		rectPtr = &rectangle;
-
 		rectangle.setPosition(x + width/2, x - width/2, y + height/2, y - height/2);
 
-		rectangle.setColor	 (194, 20, 194, 255);
+		rectangle.setColor(194, 20, 194, 255);
 
 		rectangle.triangles.t1.vertData.v2.color.r = 12;
 		rectangle.triangles.t1.vertData.v3.color.r = 12;
 		rectangle.triangles.t2.vertData.v1.color.r = 12;
+
+		rectPtr = &rectangle;
 
 		glBindBuffer(GL_ARRAY_BUFFER,		  vboID											);
 		glBufferData(GL_ARRAY_BUFFER, rectPtr->size, rectPtr->getDataArray(), GL_STATIC_DRAW);

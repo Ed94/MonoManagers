@@ -1,17 +1,14 @@
 #pragma once
-#include "Control.h"
-#include "Input.h"
 #include "Assets.h"
 #include "Config.h"
+#include "Control.h"
+#include "Input.h"
 #include "User.h"
 #include "StateMngr.h"
+#include "AR_States.h"
 
-#include "TestObjects.h"
-#include "2DObjects.h"
-#include "shaders.h"
-
-#include <cstdlib>
-#include <SDL.h>
+#include <cstdlib  >
+#include <SDL.h    >
 #include <GL\glew.h>
 #include <Windows.h>
 
@@ -34,18 +31,22 @@ namespace AbstractRealm
 		void setTiming();
 		void setup    ();
 
+		//Brandons
+		int  getsomething  ();
+		void printsomething();
+		void setsomething  ();
+
+		//States Bundle
+		AR_States ar_states;
+
 		//RealmControl Level
 		AssetMngr assetMngr;
 		Display     display;
 		InputMngr inputMngr;
+		StateMngr stateMngr;
 
 		//AR classes
 		User reiningUser;
-
-		//Temp
-		TriangleObj triangleObj;
-		Sprite			 sprite;
-		GLSL_Core	colorShader;
 
 		//Core Vars
 		Uint64 loopCount, deltaTime, updateRate, renderRate;

@@ -1,6 +1,7 @@
 #pragma once
 #include "Control.h"
 #include "User.h"
+
 #include <SDL.h>
 
 namespace AbstractRealm
@@ -22,15 +23,12 @@ namespace AbstractRealm
 	};
 
 
-	struct InputState
-	{
-
-	};
+	struct InputState { };
 
 	struct InputDevice
 	{
 		void checkPress(SDL_Event &inputEvent);
-		void checkHold();
+		void checkHold						();
 	};
 
 	class InputMngr : public RealmControl
@@ -47,4 +45,4 @@ namespace AbstractRealm
 
 		GenInputKbrd genInputKbrd;
 	};
-}
+};

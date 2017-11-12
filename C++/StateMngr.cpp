@@ -2,63 +2,18 @@
 
 namespace AbstractRealm
 {
-	StateMngr::StateMngr()
-	{
-		printf("State Manager Started.");
-	}
+	StateMngr:: StateMngr() { printf("State Manager Started.\n"); }
+	StateMngr::~StateMngr()										{ }
 
-	StateMngr::~StateMngr()
-	{
-
-	}
-
-	void StateMngr::setCRTState(State state, AssetMngr assetMngr)
+	void StateMngr::setCRTState(State state)
 	{
 		crtState = state;
+
+		initalizeState();
 	}
 
-	void StateMngr::initalizeState()
-	{
-		crtState.initalize();
-	}
-
-	void StateMngr::deinitalize()
-	{
-		crtState.deInit();
-	}
-
-	void StateMngr::updateStates()
-	{
-		crtState.update();
-	}
-
-	void StateMngr::drawStates()
-	{
-		crtState.render();
-	}
-
-
-
-	//Rectangle Test
-	void StateMngr::rectInit()
-	{
-	}
-
-	void StateMngr::rectDeInit()
-	{
-	}
-
-	void StateMngr::rectUpdate()
-	{
-	}
-
-	void StateMngr::rectrender()
-	{
-	}
-
-	void StateMngr::setupRectTest()
-	{
-		rectName = "Rectangle Test";
-
-	}
+	void StateMngr::initalizeState() { crtState.initDelegate  (); }
+	void StateMngr::destructState () { crtState.deInitDelegate(); }
+	void StateMngr::updateState   () { crtState.updateDelegate(); }
+	void StateMngr::drawState	  () { crtState.renderDelegate(); }
 }

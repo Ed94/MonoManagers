@@ -2,27 +2,18 @@
 
 namespace AbstractRealm
 {
-	class Audio
-	{
+	class Audio { };
 
-	};
-
-	class Controls
-	{
-
-	};
+	class Controls { };
 
 	class Display
 	{
 	public:
-		Display();
+		 Display();
 		~Display();
 
 		unsigned short int wWidth, wHeight;
 	};
 
-	class Visual
-	{
-
-	};
+	class Visual { };
 }

@@ -13,10 +13,7 @@ namespace AbstractRealm
 		genInputKbrd = GenInputKbrd();
 	}
 
-	InputMngr::~InputMngr()
-	{
-
-	}
+	InputMngr::~InputMngr() { }
 
 	void InputMngr::checkInput()
 	{
@@ -33,8 +30,5 @@ namespace AbstractRealm
 		}
 	}
 
-	void InputMngr::detectInputDevices()
-	{
-
-	}
+	void InputMngr::detectInputDevices() { }
 }
