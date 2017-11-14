@@ -1,5 +1,7 @@
 #include "AR.h"
 
+#include <iostream>
+
 namespace AbstractRealm 
 {
 	Core::Core()
@@ -10,12 +12,28 @@ namespace AbstractRealm
 
 		while (getExist())
 		{
-			deltaTime = SDL_GetPerformanceCounter();
+			frequency = SDL_GetPerformanceFrequency();
+			deltaTime = SDL_GetPerformanceCounter  ();
 
-			update();
+			seconds = (long double)(deltaTime - prevTime) / frequency;
+
+			/*std::cout << "Loop Cycle   : " << loopCount << "\n";
+			std::cout << "Delta Time   : " << deltaTime << "\n"  ;
+			std::cout << "Previous Time: " << prevTime  << "\n"  ;
+			std::cout << "Frequency    : " << frequency << "\n"  ;
+			std::cout << "Seconds      : " << seconds   << "\n\n";*/
+
+			while (checkTiming()) 
+			{ 
+				update(); 
+			}
+
+			updateCount = 0;
+
+			//update();
 			render();
 
-			loopCount++;
+			prevTime = deltaTime; loopCount++;
 		}
 	}
 

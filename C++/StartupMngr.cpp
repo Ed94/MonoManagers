@@ -8,6 +8,50 @@ namespace AbstractRealm
 
 		if  (SDL_Init(SDL_INIT_EVERYTHING) != 0) { SDL_Log("Unable to initialize SDL: %s", SDL_GetError());  return false; }
 		else									 { printf ("SDL has been initialzied. \n"				 );  return true ; }
+	
+		/*if (SDL_Init(SDL_INIT_TIMER != 0))
+		{
+			SDL_Log("Unable to initialize SDL Timer: %s", SDL_GetError());  return false;
+		}
+		else { printf("SDL Timer has been initialzied. \n"); }
+
+		if (SDL_Init(SDL_INIT_VIDEO != 0))
+		{
+			SDL_Log("Unable to initialize SDL Video: %s", SDL_GetError());  return false;
+		}
+		else { printf("SDL Video has been initialzied. \n"); }
+
+		if (SDL_Init(SDL_INIT_AUDIO != 0))
+		{
+			SDL_Log("Unable to initialize SDL Audio: %s", SDL_GetError());  return false;
+		}
+		else { printf("SDL Audio has been initialzied. \n"); }
+
+		if (SDL_Init(SDL_INIT_EVENTS != 0))
+		{
+			SDL_Log("Unable to initialize SDL Events: %s", SDL_GetError());  return false;
+		}
+		else { printf("SDL Events has been initialzied. \n"); }
+
+		if (SDL_Init(SDL_INIT_JOYSTICK != 0))
+		{
+			SDL_Log("Unable to initialize SDL Joystick: %s", SDL_GetError());  return false;
+		}
+		else { printf("SDL Joystick has been initialzied. \n"); }
+
+		if (SDL_Init(SDL_INIT_GAMECONTROLLER != 0))
+		{
+			SDL_Log("Unable to initialize SDL Audio: %s", SDL_GetError());  return false;
+		}
+		else { printf("SDL Audio has been initialzied. \n"); }
+
+		if (SDL_Init(SDL_INIT_HAPTIC != 0))
+		{
+			SDL_Log("Unable to initialize SDL Haptics: %s", SDL_GetError());  return false;
+		}
+		else { printf("SDL Haptics has been initialzied. \n"); }
+
+		return true;*/
 	}
 
 	void Core::setup()
@@ -20,7 +64,7 @@ namespace AbstractRealm
 
 			window = SDL_CreateWindow
 			(
-				"Game Name"			  ,   //Window Title
+				"Game name"			  ,   //Window Title
 				SDL_WINDOWPOS_CENTERED,   //Position X-Axis(Horizantal)
 				SDL_WINDOWPOS_CENTERED,   //Position Y-Axis(Vertical  )
 				display.wWidth		  ,   //Width
@@ -34,6 +78,8 @@ namespace AbstractRealm
 			//OpenGL setup.
 			SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 			glClearColor	   (0, 0, 0, 1.0		  );
+
+			inputMngr.detectInputDevices();
 
 			stateMngr.setCRTState(ar_states.rectTest);
 		}

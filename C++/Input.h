@@ -22,13 +22,12 @@ namespace AbstractRealm
 		};
 	};
 
-
 	struct InputState { };
 
 	struct InputDevice
 	{
-		void checkPress(SDL_Event &inputEvent);
-		void checkHold						();
+		virtual void checkPress(SDL_Event &inputEvent);
+		virtual void checkHold						();
 	};
 
 	class InputMngr : public RealmControl
@@ -38,10 +37,21 @@ namespace AbstractRealm
 		~InputMngr();
 
 		void checkInput();
-	private:
+
 		void detectInputDevices();
 
+	private:
+		SDL_Joystick** openJoysticks(const unsigned int numOfSticks);
+		
+		void deleteJoysticks(const unsigned int numOfSticks);
+
+		void removeController(SDL_ControllerDeviceEvent cDeviceEventInfo);
+
+		unsigned int joystickNum;
+
 		User *immersedUsers;
+
+		SDL_Joystick **joysticks;
 
 		GenInputKbrd genInputKbrd;
 	};

@@ -28,8 +28,10 @@ namespace AbstractRealm
 		void update();
 		void render();
 
-		void setTiming();
-		void setup    ();
+		bool checkTiming();
+		void setTiming  ();
+		
+		void setup      ();
 
 		//Brandons
 		int  getsomething  ();
@@ -48,10 +50,15 @@ namespace AbstractRealm
 		//AR classes
 		User reiningUser;
 
+		long double  seconds, updateInterval, renderInterval, updateCount;
+
 		//Core Vars
-		Uint64 loopCount, deltaTime, updateRate, renderRate;
+		Uint64  loopCount, deltaTime, prevTime, frequency, updateRate, renderRate;
 
 		SDL_Surface *screenSurface, *testSurface;
 		SDL_Window  *window						;
+
+		//Brandon's
+		int something;
 	};
 }

@@ -2,7 +2,29 @@
 
 namespace AbstractRealm
 {
-	void Core::setTiming() { }
+	bool Core::checkTiming()
+	{
+		updateInterval = ((long double)frequency / (long double)updateRate);
+		renderInterval = ((long double)frequency / (long double)renderRate);
+
+		updateCount = updateCount + updateInterval;
+
+		if (updateCount <= renderInterval)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	void Core::setTiming()
+	{ 
+		//Times per second.
+		updateRate = 1;
+		renderRate = 1;
+	}
 
 	void Core::update()
 	{
