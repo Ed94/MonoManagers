@@ -23,6 +23,17 @@ namespace AbstractRealm
 
 	class Keyboard_Joystick : InputDevice
 	{
+		struct general : InputState
+		{
+		private:
+			enum Controls
+			{
+				Cease
+			};
+		};
+
+		void checkPress(SDL_Event &inputEvent);
+		void checkHOld();
 
 	};
 

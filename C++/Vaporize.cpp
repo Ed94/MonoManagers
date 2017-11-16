@@ -1,8 +1,8 @@
-#include "AR.h"
+#include "Core\AR.h"
 
 int main(int argc, char* argv[])
 {
-	printf("Game Name  -------------   gInit Activated. \n\n");
+	printf("Game Name  -------------   Vaporize activated. \n\n");
 
 	AbstractRealm::Core vaporizer;
 

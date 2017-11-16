@@ -1,5 +1,5 @@
 #pragma once
-#include "control.h"
+#include "../Control/Control.h"
 
 #include <fstream  >
 #include <GL\glew.h>
@@ -8,7 +8,7 @@
 
 namespace AbstractRealm
 {
-	class GLSL_Core : RealmControl
+	class GLSL_Core : public RealmControl
 	{
 	public:
 		 GLSL_Core();

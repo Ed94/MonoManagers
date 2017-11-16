@@ -1,7 +1,9 @@
 #pragma once
 #include "State.h"
-#include "shaders.h"
-#include "2DObjects.h"
+
+#include "../Space/2DObjects.h"
+#include "../Shader/shaders.h"
+
 
 namespace AbstractRealm
 {

@@ -1,11 +1,11 @@
 #pragma once
-#include "Assets.h"
-#include "Config.h"
-#include "Control.h"
-#include "Input.h"
-#include "User.h"
-#include "StateMngr.h"
-#include "AR_States.h"
+#include "../Assets/Assets.h"
+#include "../Control/Control.h"
+#include "../Input/Input.h"
+#include "../Options/Config.h"
+#include "../States/StateMngr.h"
+#include "../States/AR_States.h"
+#include "../User/User.h"
 
 #include <cstdlib  >
 #include <SDL.h    >
@@ -32,11 +32,6 @@ namespace AbstractRealm
 		void setTiming  ();
 		
 		void setup      ();
-
-		//Brandons
-		int  getsomething  ();
-		void printsomething();
-		void setsomething  ();
 
 		//States Bundle
 		AR_States ar_states;

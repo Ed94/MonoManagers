@@ -1,5 +1,6 @@
-#include "AR.h"
 #include "Config.h"
+
+#include "../Core/AR.h"
 
 namespace AbstractRealm
 {

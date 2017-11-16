@@ -17,11 +17,11 @@ namespace AbstractRealm
 
 			seconds = (long double)(deltaTime - prevTime) / frequency;
 
-			/*std::cout << "Loop Cycle   : " << loopCount << "\n";
+			std::cout << "Loop Cycle   : " << loopCount << "\n";
 			std::cout << "Delta Time   : " << deltaTime << "\n"  ;
 			std::cout << "Previous Time: " << prevTime  << "\n"  ;
 			std::cout << "Frequency    : " << frequency << "\n"  ;
-			std::cout << "Seconds      : " << seconds   << "\n\n";*/
+			std::cout << "Seconds      : " << seconds   << "\n\n";
 
 			while (checkTiming()) 
 			{ 

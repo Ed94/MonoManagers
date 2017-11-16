@@ -1,5 +1,6 @@
 #include "Input.h"
-#include "AR.h"
+
+#include "../Core/AR.h"
 
 #include <iostream>
 #include <SDL.h   >

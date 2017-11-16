@@ -1,8 +1,9 @@
 #pragma once
-#include "2DObjects.h"
-#include "shaders.h"
 #include "State.h"
-#include "TestObjects.h"
+
+#include "../Space/2DObjects.h"
+#include "../Shader/shaders.h"
+#include "../Space/TestObjects.h"
 
 #include <GL\glew.h >
 #include <functional>
