@@ -6,6 +6,8 @@ namespace AbstractRealm
 {
 	Core::Core()
 	{
+		defcon = info;
+
 		printf("\nAR Core started. \n");
 
 		setup();
@@ -17,20 +19,10 @@ namespace AbstractRealm
 
 			seconds = (long double)(deltaTime - prevTime) / frequency;
 
-			std::cout << "Loop Cycle   : " << loopCount << "\n";
-			std::cout << "Delta Time   : " << deltaTime << "\n"  ;
-			std::cout << "Previous Time: " << prevTime  << "\n"  ;
-			std::cout << "Frequency    : " << frequency << "\n"  ;
-			std::cout << "Seconds      : " << seconds   << "\n\n";
+			if (defcon == verbose) { showCycleInfo(); }
 
-			while (checkTiming()) 
-			{ 
-				update(); 
-			}
+			while (checkTiming()) { update(); } updateCount = 0;
 
-			updateCount = 0;
-
-			//update();
 			render();
 
 			prevTime = deltaTime; loopCount++;

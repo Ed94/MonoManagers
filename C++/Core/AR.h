@@ -28,10 +28,13 @@ namespace AbstractRealm
 		void update();
 		void render();
 
+		//Timing Related.
 		bool checkTiming();
 		void setTiming  ();
 		
-		void setup      ();
+		void setup();
+
+		void showCycleInfo();
 
 		//States Bundle
 		AR_States ar_states;
@@ -45,15 +48,14 @@ namespace AbstractRealm
 		//AR classes
 		User reiningUser;
 
+		//Core Vars
+		enum DebugLevel { critical,	warnings, info, verbose}; DebugLevel defcon;
+
 		long double  seconds, updateInterval, renderInterval, updateCount;
 
-		//Core Vars
 		Uint64  loopCount, deltaTime, prevTime, frequency, updateRate, renderRate;
 
 		SDL_Surface *screenSurface, *testSurface;
-		SDL_Window  *window						;
-
-		//Brandon's
-		int something;
+		SDL_Window  *window						;	
 	};
 }

@@ -1,7 +1,23 @@
 #pragma once
-#include "Input.h"
+#include "../Input/Input.h"
+#include "../Input/InputDevices.h"
 
 namespace AbstractRealm
 {
-	class User { };
+	class User
+	{
+	public:
+		 User();
+		~User();
+
+		/*template<class Device>
+		void setInputDevice(Device *inputDevice);
+
+		template<class Device>
+		Device getInputDevice();*/
+
+	private:
+		/*template<Keyboard, Keyboard_Joystick, Keyboard_Mouse> 
+		typedef *inputDevice;*/
+	};
 }

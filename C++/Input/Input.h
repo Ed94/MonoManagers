@@ -1,5 +1,6 @@
 #pragma once
 #include "../Control/Control.h"
+#include "../Input/InputDevices.h"
 #include "../User/User.h"
 
 #include <SDL.h >
@@ -7,30 +8,6 @@
 
 namespace AbstractRealm
 {
-	class GenInputKbrd : private RealmControl
-	{
-	public:
-		 GenInputKbrd();
-		~GenInputKbrd();
-
-		void checkPress(SDL_Event &inputEvent);
-		void checkHold						();
-
-	private:
-		enum Controls
-		{
-			Cease
-		};
-	};
-
-	struct InputState { };
-
-	struct InputDevice
-	{
-		virtual void checkPress(SDL_Event &inputEvent);
-		virtual void checkHold						();
-	};
-
 	class InputMngr : public RealmControl
 	{
 	public:
@@ -40,7 +17,15 @@ namespace AbstractRealm
 		void checkInput		   ();
 		void detectInputDevices();
 
+		//bool checkPress(User user, InputState::Controls bind);
+
+		//bool checkHold();
+
+		//template<Keyboard, Keyboard_Joystick, Keyboard_Mouse>
+		//bool attatchDevice(User user, Device device);
+
 	private:
+		//Device Related
 		SDL_Joystick	  ** openJoysticks  ();
 		SDL_GameController** openControllers();
 
@@ -55,11 +40,16 @@ namespace AbstractRealm
 		unsigned char joyCount;
 		unsigned char padCount;
 
-		SDL_Joystick		 **joysticks;
+		SDL_Joystick	   **joysticks  ;
 		SDL_GameController **controllers;
 
-		GenInputKbrd genInputKbrd;
+		//AR Device Interface Level
+		//Non - Dynamic
+		Keyboard	   kybrd	 ;
+		//Keyboard_Mouse kybrdMouse;
 
-		User *immersedUsers;
+		//Dynamic
+		Controller	  *contrs  ;
+		GC_Controller *gcContrs;
 	};
 };

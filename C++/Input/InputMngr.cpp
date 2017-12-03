@@ -13,8 +13,6 @@ namespace AbstractRealm
 	InputMngr::InputMngr()
 	{
 		printf("Input Manager initalized \n");
-
-		genInputKbrd = GenInputKbrd();
 	}
 
 	InputMngr::~InputMngr() { }
@@ -27,26 +25,30 @@ namespace AbstractRealm
 		{
 			switch (inputEvent.type)
 			{
-			case SDL_KEYDOWN:
-				genInputKbrd.checkPress(inputEvent);
+				//Input Polling
+			case SDL_KEYUP || SDL_KEYDOWN:
+				kybrd.updateKeyState(inputEvent);
 				break;
 
-			//Device Handling
+			case SDL_JOYBUTTONUP:
+				break;
+
 			case SDL_JOYBUTTONDOWN:
 				break;
 
+				//Device Handling
 			case SDL_JOYDEVICEADDED:
 				break;
 
 			case SDL_JOYDEVICEREMOVED:
-				closeJoystick(inputEvent.jdevice);
+				//closeJoystick(inputEvent.jdevice);
 				break;
 
 			case SDL_CONTROLLERDEVICEADDED:
 				break;
 
 			case SDL_CONTROLLERDEVICEREMOVED:
-				closeController(inputEvent.cdevice);
+				//closeController(inputEvent.cdevice);
 				break;
 			}
 		}
@@ -55,7 +57,6 @@ namespace AbstractRealm
 	void InputMngr::detectInputDevices()
 	{
 		//Keyboard and Mouse are assumed to always be on.
-
 		printf("Querying available input devices...\n");
 
 		joyCount = SDL_NumJoysticks();
@@ -63,8 +64,8 @@ namespace AbstractRealm
 		//Joystcicks	
 		if (joyCount > 0)
 		{
-			cout << joyCount << " joysticks  found:"		<< endl; //(SDL sees all non keyboard and mouse inputs as joysticks)
-			cout			 << "Checking each joystick..." << endl;
+			cout << joyCount << " joysticks  found:" << endl; //(SDL sees all non keyboard and mouse inputs as joysticks)
+			cout << "Checking each joystick..." << endl;
 
 			joysticks = openJoysticks();
 		}
@@ -78,10 +79,27 @@ namespace AbstractRealm
 		else { printf("No joysticks to check for controller interface compatabilty.\n"); }
 
 		//Haptics (Force feedback stuff)
-		if (SDL_NumHaptics() > 0) { cout << SDL_NumHaptics() << " haptics  found." << endl; } 
-	}   
+		if (SDL_NumHaptics() > 0) { cout << SDL_NumHaptics() << " haptics  found." << endl; }
+	}
+
+	
+	//bool InputMngr::checkPress(User user, InputState::Controls bind)
+	//{
+	//	/*if (user.inputDevice->checkPress(bind))
+	//		true;*/
+	//}
+
+	/*template<Keyboard, Keyboard_Joystick, Keyboard_Mouse> bool InputMngr::attatchDevice(User user, Device device)
+	{
+		user.setInputDevice(&device);
+
+		return true;
+	}*/
+
 
 	//Private
+
+	//Device Related
 	SDL_Joystick** InputMngr::openJoysticks()
 	{
 		printf("Attempting to open all joysticks...\n\n");
@@ -98,11 +116,11 @@ namespace AbstractRealm
 			{
 				printf("Joystick Opened\n");
 
-				cout << "Name             : " << SDL_JoystickName			  (joysticks[joyIndex])		<< endl;
-				cout << "Number of Axes   : " << SDL_JoystickNumAxes		  (joysticks[joyIndex])		<< endl;
-				cout << "Number of Balls  : " << SDL_JoystickNumBalls		  (joysticks[joyIndex])		<< endl;
-				cout << "Number of Buttons: " << SDL_JoystickNumButtons		  (joysticks[joyIndex])		<< endl;
-				cout << "Number of Hats   : " << SDL_JoystickNumHats		  (joysticks[joyIndex])		<< endl;
+				cout << "Name             : " << SDL_JoystickName			  (joysticks[joyIndex])		   << endl;
+				cout << "Number of Axes   : " << SDL_JoystickNumAxes		  (joysticks[joyIndex])		   << endl;
+				cout << "Number of Balls  : " << SDL_JoystickNumBalls		  (joysticks[joyIndex])		   << endl;
+				cout << "Number of Buttons: " << SDL_JoystickNumButtons		  (joysticks[joyIndex])		   << endl;
+				cout << "Number of Hats   : " << SDL_JoystickNumHats		  (joysticks[joyIndex])		   << endl;
 				cout << "Battery Level    : " << SDL_JoystickCurrentPowerLevel(joysticks[joyIndex]) <<"\n" << endl;
 			} 
 			else { cout << "Could not open the joystick =/.\n" << endl; }
@@ -167,8 +185,5 @@ namespace AbstractRealm
 	void InputMngr::closeController(SDL_ControllerDeviceEvent cDeviceEventInfo)
 	{ SDL_GameControllerClose(controllers[cDeviceEventInfo.which]); }
 
-	void InputMngr::closeControllers()
-	{
-
-	}
+	void InputMngr::closeControllers() {}
 }

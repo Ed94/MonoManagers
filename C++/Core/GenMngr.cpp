@@ -42,4 +42,13 @@ namespace AbstractRealm
 
 		SDL_GL_SwapWindow(window);
 	}
+
+	void Core::showCycleInfo()
+	{
+		std::cout << "Loop Cycle   : " << loopCount << "\n"  ;
+		std::cout << "Delta Time   : " << deltaTime << "\n"  ;
+		std::cout << "Previous Time: " << prevTime  << "\n"  ;
+		std::cout << "Frequency    : " << frequency << "\n"  ;
+		std::cout << "Seconds      : " << seconds   << "\n\n";
+	}
 }
