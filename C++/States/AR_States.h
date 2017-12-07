@@ -7,7 +7,7 @@
 
 namespace AbstractRealm
 {
-	class AR_States
+	class AR_States : RealmControl
 	{
 	public:
 		 AR_States();

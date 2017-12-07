@@ -30,7 +30,7 @@ namespace AbstractRealm
 
 			window = SDL_CreateWindow
 			(
-				"Game Name"	          ,   //Window Title
+				"Game Name"			  ,   //Window Title
 				SDL_WINDOWPOS_CENTERED,   //Position X-Axis(Horizantal)
 				SDL_WINDOWPOS_CENTERED,   //Position Y-Axis(Vertical  )
 				display.wWidth		  ,   //Width
@@ -45,11 +45,20 @@ namespace AbstractRealm
 			SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 			glClearColor	   (0, 0, 0, 1.0		  );
 
+			//Managers setup
+			this->inputMngrPtr = &inputMngr;
+			this->userMngrPtr  = &userMngr ;
+
 			inputMngr.detectInputDevices();
 
 			stateMngr.setCRTState(ar_states.rectTest);
+
+			//Temp
+			reiningUser.setKeyboard(inputMngr.getKeyboard());   //Will be set somewhere else later as part of a proper user setup.
+
+			userMngr.setReiningUser(&reiningUser);
 		}
 		else
-			printf("Halting setup since SDL did not properly initialize. Quit now fix this thing.");
+			printf("Halting setup since SDL did not properly initialize. Quit now and fix this thing.");
  	}
 }

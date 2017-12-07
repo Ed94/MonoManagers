@@ -1,10 +1,9 @@
-#include "AbstractRealm\User\User.h"
+#include "..\User\User.h"
 
 namespace AbstractRealm
 {
 	User::User() 
 	{
-
 	}
 
 	User::~User()
@@ -12,14 +11,44 @@ namespace AbstractRealm
 
 	}
 
-	/*template<class Device>
-	Device User::getInputDevice()
+	bool User::checkPress(InputStates state, unsigned int controlOption)
 	{
-		return *inputDevice;
-	}*/
+		switch (assignedDevice)
+		{
+		case InputOptions::Keyboard:
+			return kybrd->checkPress(state, controlOption);
 
-	/*template<class Device> void User::setInputDevice(Device *inputDevice)
+		default:
+			printf("Could not find device.");
+
+			return false;
+		}
+	}
+	
+	bool User::checkHold(InputStates state, unsigned int controlOption)
 	{
-		this->inputDevice = &inputDevice;
-	}*/
+		switch (assignedDevice)
+		{
+		case InputOptions::Keyboard:
+			return kybrd->checkHold(state, controlOption);
+
+		default:
+			printf("Could not find device.");
+
+			return false;
+		}
+	}
+
+	Keyboard* User::getKeyboard()
+	{
+		return kybrd;
+	}
+
+	void User::setKeyboard(Keyboard *passedKeyboard)
+	{
+		kybrd = passedKeyboard;
+
+		assignedDevice = InputOptions::Keyboard;
+	}
+
 }

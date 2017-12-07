@@ -33,6 +33,6 @@ namespace AbstractRealm
 	{
 		SDL_QUIT;
 
-		exit(69);
+		exit(0);
 	}
 }

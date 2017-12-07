@@ -1,14 +1,13 @@
 #pragma once
-#include "../Control/Control.h"
 #include "../Input/InputDevices.h"
-#include "../User/User.h"
+#include "../Input/InputStates.h"
 
 #include <SDL.h >
 #include <vector>
 
 namespace AbstractRealm
 {
-	class InputMngr : public RealmControl
+	class InputMngr
 	{
 	public:
 		 InputMngr();
@@ -17,12 +16,7 @@ namespace AbstractRealm
 		void checkInput		   ();
 		void detectInputDevices();
 
-		//bool checkPress(User user, InputState::Controls bind);
-
-		//bool checkHold();
-
-		//template<Keyboard, Keyboard_Joystick, Keyboard_Mouse>
-		//bool attatchDevice(User user, Device device);
+		Keyboard *getKeyboard();
 
 	private:
 		//Device Related
@@ -39,7 +33,7 @@ namespace AbstractRealm
 
 		unsigned char joyCount;
 		unsigned char padCount;
-
+		
 		SDL_Joystick	   **joysticks  ;
 		SDL_GameController **controllers;
 
@@ -47,6 +41,7 @@ namespace AbstractRealm
 		//Non - Dynamic
 		Keyboard	   kybrd	 ;
 		//Keyboard_Mouse kybrdMouse;
+		//Keyboard_Joystick kybrdJoy;
 
 		//Dynamic
 		Controller	  *contrs  ;

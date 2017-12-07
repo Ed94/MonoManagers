@@ -5,12 +5,14 @@
 #include "../Options/Config.h"
 #include "../States/StateMngr.h"
 #include "../States/AR_States.h"
+#include "../User/UserMngr.h"
 #include "../User/User.h"
 
 #include <cstdlib  >
 #include <SDL.h    >
 #include <GL\glew.h>
 #include <Windows.h>
+#include <iostream>
 
 
 namespace AbstractRealm
@@ -40,10 +42,11 @@ namespace AbstractRealm
 		AR_States ar_states;
 
 		//RealmControl Level
-		AssetMngr assetMngr;
-		Display     display;
-		InputMngr inputMngr;
-		StateMngr stateMngr;
+		AssetMngr assetMngr ;
+		Display   display   ;
+		InputMngr inputMngr ;
+		StateMngr stateMngr ; 
+		UserMngr  userMngr  ;
 
 		//AR classes
 		User reiningUser;
@@ -56,6 +59,6 @@ namespace AbstractRealm
 		Uint64  loopCount, deltaTime, prevTime, frequency, updateRate, renderRate;
 
 		SDL_Surface *screenSurface, *testSurface;
-		SDL_Window  *window						;	
+		SDL_Window  *window						;
 	};
 }

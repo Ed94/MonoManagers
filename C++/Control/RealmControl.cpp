@@ -28,4 +28,7 @@ namespace AbstractRealm
 	void RealmControl::cease   () { exist = false; }
 
 	bool RealmControl::exist = true;
+
+	InputMngr *RealmControl::inputMngrPtr;
+	UserMngr  *RealmControl::userMngrPtr ;
 }

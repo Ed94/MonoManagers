@@ -1,42 +1,16 @@
 #pragma once
+#include "../Input/InputStates.h"
 
 #include <vector>
 #include <SDL.h>
 
 namespace AbstractRealm
 {
-	struct InputState
-	{
-	public:
-		enum class Controls;
-
-		void getControlsFromUser();
-	};
-
 	//Base Structs
 	struct InputDevice
 	{
 		virtual void checkPress();
-
 		virtual void checkHold ();
-	};
-
-	//States
-	struct GenState : InputState
-	{
-	public:
-		enum class Controls
-		{
-			Cease,
-		};
-
-		SDL_Keycode Cease;
-	};
-
-	struct TestState :InputState
-	{
-	public:
-
 	};
 
 	//Keyboard Related
@@ -45,19 +19,26 @@ namespace AbstractRealm
 	public:
 		 Keyboard();
 		~Keyboard();
-		
-		void updateKeyState(SDL_Event &inputEvent);
 
-		void checkPress();
-		void checkHold ();
+		void startup();
+		
+		void updateKeyState();
+
+		bool checkPress(InputStates state, unsigned int controlOption);
+		bool checkHold (InputStates state, unsigned int controlOption);
+
 	private:
 		void keyPressInfo(SDL_Event &inputEvent);
+		void setupBinds						  ();
 
-		GenState  genKybrd ;
+		SDL_Keycode getBind(InputStates state, unsigned int controlOption);
+
+		MenuState menuKybrd;
 		TestState testKybrd;
 
-		const Uint8* prevState;   //State of the keyboard in the previous cycle.
-		const Uint8* currState;   //State of the keyboard in the current  cycle.
+			  int		length;   //Length of the SDL keyboard registry array.
+			  Uint8 *prevState;   //State of the keyboard in the previous cycle.
+		const Uint8 *currState;   //State of the keyboard in the current  cycle.
 	};
 
 	class Keyboard_Joystick : Keyboard
@@ -67,9 +48,9 @@ namespace AbstractRealm
 		~Keyboard_Joystick();
 
 		void checkPress();
-		void checkHold						();
+		void checkHold ();
 	private:
-		GenState genKybrdJoy;
+		MenuState menuKybrdJoy;
 	};
 
 	class Keyboard_Mouse : Keyboard
@@ -79,9 +60,9 @@ namespace AbstractRealm
 		~Keyboard_Mouse();
 
 		void checkPress();
-		void checkHold						();
+		void checkHold ();
 	private:
-		GenState genKybrdMouse;
+		MenuState menuKybrdMouse;
 	};
 
 	class Joystick : InputDevice
@@ -97,9 +78,9 @@ namespace AbstractRealm
 		~Controller();
 
 		void checkPress();
-		void checkHold						();
+		void checkHold ();
 	private:
-		GenState genController;
+		MenuState menuController;
 	};
 
 
@@ -110,8 +91,8 @@ namespace AbstractRealm
 		~GC_Controller();
 
 		void checkPress();
-		void checkHold						();
+		void checkHold ();
 	private:
-		GenState genControllerGC;
+		MenuState menuControllerGC;
 	};
 }

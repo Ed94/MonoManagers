@@ -1,4 +1,7 @@
 #pragma once
+#include "../Input/Input.h"
+#include "../User/UserMngr.h"
+
 #include <iostream>
 #include <string  >
 
@@ -20,7 +23,11 @@ namespace AbstractRealm
 
 		//Existance Handling
 		bool getExist();
-		void cease   ();
+		void cease();
+
+	protected:
+		static InputMngr *inputMngrPtr;
+		static UserMngr  *userMngrPtr ;
 
 	private:
 		//Vars

@@ -20,7 +20,14 @@ namespace AbstractRealm
 	}
 
 	void AR_States::rectDeInit() { }
-	void AR_States::rectUpdate() { }
+
+	void AR_States::rectUpdate() 
+	{
+		if (this->userMngrPtr->checkPress(AccessLevel::Host, InputStates::Menu, (unsigned int)MenuControls::Cease))
+		{
+			cease();
+		}
+	}
 
 	void AR_States::rectRender()
 	{

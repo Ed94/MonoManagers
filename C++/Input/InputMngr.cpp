@@ -19,23 +19,14 @@ namespace AbstractRealm
 
 	void InputMngr::checkInput()
 	{
+		kybrd.updateKeyState();
+
 		SDL_Event inputEvent;
 
 		while (SDL_PollEvent(&inputEvent))
 		{
 			switch (inputEvent.type)
 			{
-				//Input Polling
-			case SDL_KEYUP || SDL_KEYDOWN:
-				kybrd.updateKeyState(inputEvent);
-				break;
-
-			case SDL_JOYBUTTONUP:
-				break;
-
-			case SDL_JOYBUTTONDOWN:
-				break;
-
 				//Device Handling
 			case SDL_JOYDEVICEADDED:
 				break;
@@ -57,6 +48,8 @@ namespace AbstractRealm
 	void InputMngr::detectInputDevices()
 	{
 		//Keyboard and Mouse are assumed to always be on.
+		kybrd.startup();
+
 		printf("Querying available input devices...\n");
 
 		joyCount = SDL_NumJoysticks();
@@ -81,20 +74,6 @@ namespace AbstractRealm
 		//Haptics (Force feedback stuff)
 		if (SDL_NumHaptics() > 0) { cout << SDL_NumHaptics() << " haptics  found." << endl; }
 	}
-
-	
-	//bool InputMngr::checkPress(User user, InputState::Controls bind)
-	//{
-	//	/*if (user.inputDevice->checkPress(bind))
-	//		true;*/
-	//}
-
-	/*template<Keyboard, Keyboard_Joystick, Keyboard_Mouse> bool InputMngr::attatchDevice(User user, Device device)
-	{
-		user.setInputDevice(&device);
-
-		return true;
-	}*/
 
 
 	//Private
@@ -165,6 +144,11 @@ namespace AbstractRealm
 		}
 
 		return padList;
+	}
+
+	Keyboard* InputMngr::getKeyboard()
+	{
+		return &kybrd;
 	}
 
 	void InputMngr::closeJoystick(SDL_Joystick *joystick)

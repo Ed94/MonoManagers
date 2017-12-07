@@ -9,19 +9,12 @@ namespace AbstractRealm
 
 		updateCount = updateCount + updateInterval;
 
-		if (updateCount <= renderInterval)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		if  (updateCount <= renderInterval) { return true ; }
+		else                                { return false; }
 	}
 
 	void Core::setTiming()
 	{ 
-		//Times per second.
 		updateRate = 1;
 		renderRate = 1;
 	}
