@@ -1,5 +1,6 @@
 #pragma once
 #include "../Input/Input.h"
+#include "../States/StateMngr.h"
 #include "../User/UserMngr.h"
 
 #include <iostream>
@@ -27,6 +28,7 @@ namespace AbstractRealm
 
 	protected:
 		static InputMngr *inputMngrPtr;
+		static StateMngr *stateMngrPtr;
 		static UserMngr  *userMngrPtr ;
 
 	private:

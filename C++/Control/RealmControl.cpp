@@ -5,6 +5,10 @@ namespace AbstractRealm
 	RealmControl:: RealmControl() { }
 	RealmControl::~RealmControl() { }
 
+	InputMngr *RealmControl::inputMngrPtr;
+	StateMngr *RealmControl::stateMngrPtr;
+	UserMngr  *RealmControl::userMngrPtr ;
+
 	void RealmControl::errorHandler(std::string errorMsg)
 	{
 		std::cout << errorMsg << std::endl;
@@ -28,7 +32,4 @@ namespace AbstractRealm
 	void RealmControl::cease   () { exist = false; }
 
 	bool RealmControl::exist = true;
-
-	InputMngr *RealmControl::inputMngrPtr;
-	UserMngr  *RealmControl::userMngrPtr ;
 }

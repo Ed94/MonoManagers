@@ -8,7 +8,7 @@ namespace AbstractRealm
 	{
 		defcon = info;
 
-		printf("\nAR Core started. \n");
+		printf("\nAR Core created. \n");
 
 		setup();
 

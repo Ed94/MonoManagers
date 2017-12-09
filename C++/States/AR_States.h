@@ -16,9 +16,22 @@ namespace AbstractRealm
 		void setupStates();
 
 		//State List
+		State inputSel;
 		State rectTest;
 
 	private:
+		/*   Launch States    */
+		//--------------------//
+		/*   Input Select     */
+		std::string inputSelName;
+
+		void setupInputSel();
+
+		void inputSelInit  ();
+		void inputSelDeInit();
+		void inputSelUpdate();
+		void inputSelRender();
+
 		/*    Test States     */
 		//--------------------//
 		/*   Rectangle Test   */

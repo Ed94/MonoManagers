@@ -1,12 +1,12 @@
 #pragma once
 #include "../Assets/Assets.h"
+#include "../States/AR_States.h"
+#include "../Options/Config.h"
 #include "../Control/Control.h"
 #include "../Input/Input.h"
-#include "../Options/Config.h"
 #include "../States/StateMngr.h"
-#include "../States/AR_States.h"
-#include "../User/UserMngr.h"
 #include "../User/User.h"
+#include "../User/UserMngr.h"
 
 #include <cstdlib  >
 #include <SDL.h    >

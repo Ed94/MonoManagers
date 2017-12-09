@@ -51,4 +51,8 @@ namespace AbstractRealm
 		assignedDevice = InputOptions::Keyboard;
 	}
 
+	void User::loadDeviceControls()
+	{
+
+	}
 }

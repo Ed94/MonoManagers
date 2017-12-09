@@ -1,11 +1,6 @@
 #pragma once
 #include "State.h"
 
-#include "../Space/2DObjects.h"
-#include "../Shader/shaders.h"
-#include "../Space/TestObjects.h"
-
-#include <GL\glew.h >
 #include <functional>
 
 namespace AbstractRealm

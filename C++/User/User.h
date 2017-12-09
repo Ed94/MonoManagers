@@ -17,14 +17,13 @@ namespace AbstractRealm
 		bool checkPress(InputStates state, unsigned int ControlOption);
 		bool checkHold (InputStates state, unsigned int ControlOption);
 
-		void loadBinds();
+		void loadDeviceControls();
 
 		//Keyboard
 		Keyboard* getKeyboard					     ();
 		void	  setKeyboard(Keyboard *passedKeyboard);
 
 		InputOptions assignedDevice;
-
 
 		//Devices
 		Keyboard	      *kybrd		;

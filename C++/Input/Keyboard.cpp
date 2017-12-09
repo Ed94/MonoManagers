@@ -7,6 +7,7 @@ using namespace std;
 
 namespace AbstractRealm
 {
+	//Public
 	Keyboard::Keyboard()
 	{
 		prevState = new Uint8[length];
@@ -19,19 +20,41 @@ namespace AbstractRealm
 
 	void Keyboard::startup()
 	{
-		setupBinds();
+		setDefaultBinds();
 
 		currState = SDL_GetKeyboardState(&length);
 
 		std::memcpy(prevState, currState, length);
 	}
 
+	void Keyboard::setDefaultBinds()
+	{
+		printf("\nSetting up default keyboard bindings.\n");
+
+		menuKybrd.menuBinds.length = (unsigned int)MenuControls::ENUM_SIZE;
+
+		menuKybrd.menuBinds.binds = new KeyControlBind[menuKybrd.menuBinds.length];
+
+		menuKybrd.menuBinds.setBind("Cease"  , SDLK_END		 , (unsigned int)MenuControls::Cease );
+		menuKybrd.menuBinds.setBind("Select" , SDLK_RETURN	 , (unsigned int)MenuControls::Select);
+		menuKybrd.menuBinds.setBind("Back"   , SDLK_BACKSPACE, (unsigned int)MenuControls::Back	 );
+		menuKybrd.menuBinds.setBind("Up"	 , SDLK_w		 , (unsigned int)MenuControls::Up	 );
+		menuKybrd.menuBinds.setBind("Down"	 , SDLK_s		 , (unsigned int)MenuControls::Down  );
+		menuKybrd.menuBinds.setBind("Left"	 , SDLK_a		 , (unsigned int)MenuControls::Left  );
+		menuKybrd.menuBinds.setBind("Right"	 , SDLK_d		 , (unsigned int)MenuControls::Right );
+
+		testKybrd.testBinds.length = (unsigned int)TestControls::ENUM_SIZE;
+
+		testKybrd.testBinds.binds = new KeyControlBind[menuKybrd.menuBinds.length];
+
+		testKybrd.testBinds.setBind("Pause"       , SDLK_ESCAPE, (unsigned int)TestControls::Pause      );
+		testKybrd.testBinds.setBind("Open Menu"   , SDLK_m	   , (unsigned int)TestControls::OpenMenu   );
+		testKybrd.testBinds.setBind("Debug Toggle", SDLK_F1	   , (unsigned int)TestControls::debugToggle);
+	}
+
 	void Keyboard::setupBinds()
 	{
-		printf("Setting up keyboard bindings.\n");
-
-		menuKybrd.Cease =  SDLK_END		;
-		menuKybrd.Select = SDLK_KP_ENTER;
+		
 	}
 
 	void Keyboard::updateKeyState()
@@ -44,7 +67,8 @@ namespace AbstractRealm
 		SDL_Keycode  key  = getBind		          (state, controlOption);
 		SDL_Scancode code = SDL_GetScancodeFromKey(key				   );
 
-		if  (currState[code] && !prevState[code]){ return true ; }
+		if  (currState[code] &&
+			!prevState[code]){ return true ; }
 		else									 { return false; }
 	}
 
@@ -57,15 +81,17 @@ namespace AbstractRealm
 		else									 { return false; }
 	}
 
+
+	//Private
 	SDL_Keycode Keyboard::getBind(InputStates inputState, unsigned int controlOption)
 	{
 		switch (inputState)
 		{
 		case InputStates::Menu:
-			return menuKybrd.getBind(controlOption);
+			return menuKybrd.menuBinds.binds[controlOption].bind;
 			break;
 		case InputStates::Test:
-			return testKybrd.getBind(controlOption);
+			return testKybrd.testBinds.binds[controlOption].bind;
 			break;
 
 		default:

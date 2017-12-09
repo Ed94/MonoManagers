@@ -12,7 +12,14 @@ namespace AbstractRealm
 	class UserMngr
 	{
 	public:
+		 UserMngr();
+		~UserMngr();
+
 		bool checkPress(AccessLevel level, InputStates state, unsigned int controlOption);
+
+		bool loadUsers();
+
+		void poplulateUsers();
 
 		void setReiningUser(User *user);
 

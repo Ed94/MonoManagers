@@ -1,7 +1,7 @@
 #include "Input.h"
-#include "stdio.h"
-
 #include "../Core/AR.h"
+
+#include "stdio.h"
 
 #include <iostream>
 
@@ -12,7 +12,7 @@ namespace AbstractRealm
 	//Public
 	InputMngr::InputMngr()
 	{
-		printf("Input Manager initalized \n");
+		printf("Input Manager created. \n");
 	}
 
 	InputMngr::~InputMngr() { }
@@ -20,6 +20,9 @@ namespace AbstractRealm
 	void InputMngr::checkInput()
 	{
 		kybrd.updateKeyState();
+
+		updateJoyState();
+		updatePadState();
 
 		SDL_Event inputEvent;
 
@@ -29,6 +32,7 @@ namespace AbstractRealm
 			{
 				//Device Handling
 			case SDL_JOYDEVICEADDED:
+				//openJoystick(inputEvent.jdevice);
 				break;
 
 			case SDL_JOYDEVICEREMOVED:
@@ -36,6 +40,7 @@ namespace AbstractRealm
 				break;
 
 			case SDL_CONTROLLERDEVICEADDED:
+				//openController(inputEvent.jdevice);
 				break;
 
 			case SDL_CONTROLLERDEVICEREMOVED:
@@ -52,22 +57,22 @@ namespace AbstractRealm
 
 		printf("Querying available input devices...\n");
 
-		joyCount = SDL_NumJoysticks();
+		SDL_JoyCount = SDL_NumJoysticks();
 
 		//Joystcicks	
-		if (joyCount > 0)
+		if (SDL_JoyCount > 0)
 		{
-			cout << joyCount << " joysticks  found:" << endl; //(SDL sees all non keyboard and mouse inputs as joysticks)
-			cout << "Checking each joystick..." << endl;
+			cout << SDL_JoyCount			    << " joysticks  found:" << endl; //(SDL sees all non keyboard and mouse inputs as joysticks)
+			cout << "Checking each joystick..." <<						   endl;
 
-			joysticks = openJoysticks();
+			joysticks = openJoys();
 		}
 		else { printf("No joysticks are available.\n"); }
 
 		//Controllers
 		if (joysticks != nullptr)
 		{
-			controllers = openControllers();
+			controllers = openPads();
 		}
 		else { printf("No joysticks to check for controller interface compatabilty.\n"); }
 
@@ -75,17 +80,23 @@ namespace AbstractRealm
 		if (SDL_NumHaptics() > 0) { cout << SDL_NumHaptics() << " haptics  found." << endl; }
 	}
 
+	Keyboard* InputMngr::getKeyboard()
+	{
+		return &kybrd;
+	}
 
 	//Private
 
 	//Device Related
-	SDL_Joystick** InputMngr::openJoysticks()
+
+	//Joystick Related
+	SDL_Joystick** InputMngr::openJoys()
 	{
 		printf("Attempting to open all joysticks...\n\n");
 
-		SDL_Joystick **joysticks = new SDL_Joystick*[joyCount];
+		SDL_Joystick **joysticks = new SDL_Joystick*[(int)SDL_JoyCount];
 
-		for (unsigned int joyIndex = 0; joyIndex < joyCount; joyIndex++)
+		for (unsigned int joyIndex = 0; joyIndex < SDL_JoyCount; joyIndex++)
 		{
 			joysticks[joyIndex] = SDL_JoystickOpen(joyIndex);
 
@@ -108,19 +119,36 @@ namespace AbstractRealm
 		return joysticks;
 	}
 
-	SDL_GameController** InputMngr::openControllers()
+	void InputMngr::closeJoystick(SDL_Joystick *joystick)
+	{
+		SDL_JoystickClose(joystick);
+	}
+
+	void InputMngr::closeJoystick(SDL_JoyDeviceEvent jDeviceInfo)
+	{
+		SDL_JoystickClose(joysticks[jDeviceInfo.which]);
+	}
+
+	void InputMngr::closeJoysticks()
+	{
+		for (unsigned char joyIndex = 0; joyIndex < SDL_JoyCount; joyIndex++)
+			SDL_JoystickClose(joysticks[joyIndex]);
+	}
+
+	//Controller Related
+	SDL_GameController** InputMngr::openPads()
 	{
 		printf("Checking Joystick compatability with game controller mappings...\n");
 
-		SDL_GameController **padList = new SDL_GameController*[joyCount];
+		SDL_GameController **padList = new SDL_GameController*[SDL_JoyCount];
 
-		for (unsigned int joyIndex = 0; joyIndex < joyCount; joyIndex++)
+		for (unsigned int joyIndex = 0; joyIndex < SDL_JoyCount; joyIndex++)
 		{
 			if (SDL_IsGameController(joyIndex))
 			{
 				cout << joysticks[joyIndex] << " has support for controller interface." << endl;
 
-				cout << "Setting up device for use as controller...";
+				cout << "Setting up device for use as controller..." << endl;
 
 				closeJoystick(joysticks[joyIndex]);
 
@@ -130,37 +158,19 @@ namespace AbstractRealm
 
 				if (padList[joyIndex] != NULL)
 				{
-					printf("Controller Opened\n");
+					printf("Controller Opened. \n");
 
 					cout << "Name             : " << SDL_GameControllerName		  (padList[joyIndex]) << endl;
 					cout << "Attached?        : " << SDL_GameControllerGetAttached(padList[joyIndex]) << endl;
 					cout << "Mapping		  : " << SDL_GameControllerMapping	  (padList[joyIndex]) << endl;
-					
 				}
 				else { cout << "Could not open the controller =/.\n" << endl; }
 
-				padCount++;
+				SDL_PadCount++;
 			}
 		}
 
 		return padList;
-	}
-
-	Keyboard* InputMngr::getKeyboard()
-	{
-		return &kybrd;
-	}
-
-	void InputMngr::closeJoystick(SDL_Joystick *joystick)
-	{ SDL_JoystickClose(joystick); }
-
-	void InputMngr::closeJoystick(SDL_JoyDeviceEvent jDeviceInfo)
-	{ SDL_JoystickClose(joysticks[jDeviceInfo.which]); }
-
-	void InputMngr::closeJoysticks()
-	{
-		for (unsigned char joyIndex = 0; joyIndex < joyCount; joyIndex++)
-			SDL_JoystickClose(joysticks[joyIndex]);
 	}
 
 	void InputMngr::closeController(SDL_GameController *controller)
@@ -170,4 +180,17 @@ namespace AbstractRealm
 	{ SDL_GameControllerClose(controllers[cDeviceEventInfo.which]); }
 
 	void InputMngr::closeControllers() {}
+
+	//AR interface level
+	void InputMngr::updateJoyState()
+	{
+		for (Uint8 joyIndex = 0; joyIndex < joyCount; joyIndex++)
+		{
+			//joys[joyIndex].updateJoyState();
+		}
+	}
+
+	void InputMngr::updatePadState()
+	{
+	}
 }

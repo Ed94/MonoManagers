@@ -7,7 +7,7 @@ namespace AbstractRealm
 		printf("Attempting to initalize SDL. \n");
 
 		if  (SDL_Init(SDL_INIT_EVERYTHING) != 0) { SDL_Log("Unable to initialize SDL: %s", SDL_GetError());  return false; }
-		else									 { printf ("SDL has been initialzied. \n"				 );  return true ; }
+		else									 { printf ("SDL has been initialzied. \n\n" 			 );  return true ; }
 
 		/*if   (SDL_Init(SDL_INIT_TIMER		   != 0)) { SDL_Log("Unable to initialize SDL Timer   : %s", SDL_GetError());  return false; } else { printf("SDL Timer    has been initialzied.\n"); }
 		if   (SDL_Init(SDL_INIT_VIDEO		   != 0)) { SDL_Log("Unable to initialize SDL Video   : %s", SDL_GetError());  return false; } else { printf("SDL Video    has been initialzied.\n"); }
@@ -30,7 +30,7 @@ namespace AbstractRealm
 
 			window = SDL_CreateWindow
 			(
-				"Game Name"			  ,   //Window Title
+				"Game Name"		 	  ,   //Window Title
 				SDL_WINDOWPOS_CENTERED,   //Position X-Axis(Horizantal)
 				SDL_WINDOWPOS_CENTERED,   //Position Y-Axis(Vertical  )
 				display.wWidth		  ,   //Width
@@ -46,8 +46,9 @@ namespace AbstractRealm
 			glClearColor	   (0, 0, 0, 1.0		  );
 
 			//Managers setup
-			this->inputMngrPtr = &inputMngr;
-			this->userMngrPtr  = &userMngr ;
+			inputMngrPtr = &inputMngr;
+			stateMngrPtr = &stateMngr;
+			userMngrPtr  = &userMngr ;
 
 			inputMngr.detectInputDevices();
 

@@ -2,7 +2,7 @@
 
 namespace AbstractRealm
 {
-	StateMngr:: StateMngr() { printf("State Manager Started.\n"); }
+	StateMngr:: StateMngr() { printf("State Manager created.\n"); }
 	StateMngr::~StateMngr()										{ }
 
 	void StateMngr::setCRTState(State state)

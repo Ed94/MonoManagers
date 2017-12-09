@@ -1,7 +1,17 @@
-#include "AbstractRealm\User\UserMngr.h"
+#include "UserMngr.h"
 
 namespace AbstractRealm
 {
+	UserMngr::UserMngr()
+	{
+		printf("User  Manager created. \n");
+	}
+
+	UserMngr::~UserMngr()
+	{
+
+	}
+
 	bool UserMngr::checkPress(AccessLevel level, InputStates state, unsigned int controlOption)
 	{
 		switch (level)
@@ -30,5 +40,10 @@ namespace AbstractRealm
 	void UserMngr::setReiningUser(User *user)
 	{
 		reiningUser = user;
+	}
+
+	void UserMngr::poplulateUsers()
+	{
+
 	}
 }
