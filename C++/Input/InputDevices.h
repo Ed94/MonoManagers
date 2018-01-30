@@ -9,7 +9,8 @@ namespace AbstractRealm
 	//Base Structs
 	struct InputDevice
 	{
-		virtual void startup   ();
+		virtual void startup();
+
 		virtual void checkPress();
 		virtual void checkHold ();
 	};
@@ -48,7 +49,7 @@ namespace AbstractRealm
 	{
 	public:
 		 Joystick(SDL_Joystick *joyRef);
-		~Joystick();
+		~Joystick					 ();
 
 		void startup();
 

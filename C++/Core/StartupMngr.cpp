@@ -30,7 +30,7 @@ namespace AbstractRealm
 
 			window = SDL_CreateWindow
 			(
-				"Game Name"		 	  ,   //Window Title
+				"Game Name"			  ,   //Window Title
 				SDL_WINDOWPOS_CENTERED,   //Position X-Axis(Horizantal)
 				SDL_WINDOWPOS_CENTERED,   //Position Y-Axis(Vertical  )
 				display.wWidth		  ,   //Width

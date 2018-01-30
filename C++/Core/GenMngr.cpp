@@ -15,6 +15,7 @@ namespace AbstractRealm
 
 	void Core::setTiming()
 	{ 
+		//Times per second.
 		updateRate = 1;
 		renderRate = 1;
 	}

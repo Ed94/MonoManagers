@@ -1,7 +1,7 @@
 #include "Input.h"
-#include "../Core/AR.h"
-
 #include "stdio.h"
+
+#include "../Core/AR.h"
 
 #include <iostream>
 

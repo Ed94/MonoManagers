@@ -40,7 +40,7 @@ namespace AbstractRealm   //Determining InputState should be more modular.
 
 	struct KeyControls : DeviceControlData 
 	{
-		void setBind(std::string name, SDL_Keycode bind, unsigned int bindName);
+		void setBind(std::string name, SDL_Keycode bind, unsigned int bindIndex);
 
 		KeyControlBind *binds;  
 	};
@@ -69,22 +69,38 @@ namespace AbstractRealm   //Determining InputState should be more modular.
 		Uint8 *hats;
 	};
 
-	struct JoyAxisBind   : DeviceBindData { unsigned int axis  ; };
+	struct JoyAxisBind : DeviceBindData { unsigned int axis; int direction; };
+
 	struct JoyBallBind   : DeviceBindData { unsigned int ball  ; };
 	struct JoyButtonBind : DeviceBindData { unsigned int button; };
 	struct JoyHatBind    : DeviceBindData { unsigned int hat   ; };
 
+	struct JoyAxis
+	{
+		JoyAxisBind *axisBinds;
+	};
+
+	struct JoyBall
+	{
+		JoyBallBind *ballBinds;
+	};
+
+	struct JoyHat
+	{
+		JoyHatBind *hatBinds;
+	};
+
 	struct JoyControls : DeviceControlData
 	{
-		enum JoyInputType { axis, ball, button, hat };
+		enum AxisDirection { positive, negative };
 
-		template<typename JoyInput>
-		void setBinding(JoyInputType type, string name, JoyInput input, unsigned int bindName);
+		void setAxisBinding(string bindName, Uint8 orientation, int direction, Uint8 axisNum, unsigned int bindIndex);
 
-		JoyAxisBind   *axisBinds  ;
-		JoyBallBind   *ballBinds  ;
+		JoyAxis *axes ;
+		JoyBall *balls;
+		JoyHat  *hats ;
+
 		JoyButtonBind *buttonBinds;
-		JoyHatBind    *hatBinds   ;
 	};
 
 	//Controllers

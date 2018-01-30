@@ -1,12 +1,12 @@
-#include "Core\AR.h"
+#include "..\Core\AR.h"
 
 int main(int argc, char* argv[])
 {
-	printf("Game Name  -------------   Vaporize activated. \n\n");
+	printf("Game Name (Goes Here)  -------------   Initalizer activated. \n\n");
 
-	AbstractRealm::Core vaporizer;
+	AbstractRealm::Core realm;
 
-	vaporizer.~Core();
+	realm~Core();
 
 	return 0;
 }
