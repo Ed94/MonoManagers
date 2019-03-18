@@ -7,3 +7,5 @@ The code needs to be tied together in a game as the user sees fit. This just has
 Orginally done in C# with the monogame framework along with bepu physics, I'm now doing it in C++ with SDL, and Boost so far with some basic OpenGL. (Still in the process of porting what was done in c#). I will eventually add a physics engine/framework and 3d renderer (undecided on which).
 
 These include things related to Camera, Display, Input, Interface, State, and Asset management.
+
+Note: This is dead. I'll be working on something else in the future instead.
